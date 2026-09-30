@@ -176,7 +176,7 @@
   .score{ font-size:34px; font-weight:800; color:var(--accent); font-variant-numeric:tabular-nums; }
   .score small{ font-size:15px; color:var(--muted); font-weight:600; }
   .ubars{ display:grid; gap:8px; margin:16px 0 4px; }
-  .ubar{ display:grid; grid-template-columns:minmax(120px,190px) 1fr 64px; align-items:center; gap:10px; font-size:13px; }
+  .ubar{ display:grid; grid-template-columns:minmax(120px,190px) 1fr 92px; align-items:center; gap:10px; font-size:13px; }
   .ubar .track{ height:8px; background:var(--border); border-radius:99px; overflow:hidden; }
   .ubar .track i{ display:block; height:100%; background:var(--c); }
   .ubar span:last-child{ text-align:right; color:var(--muted); font-variant-numeric:tabular-nums; }
@@ -271,7 +271,7 @@ const LVNAME = {1:"기본", 2:"응용", 3:"심화"};
 const LS_KEY = "cb-midterm-quiz-v1";
 const uname = Object.fromEntries(UNITS.map(u => [u[0], u[1]]));
 
-let S = { mode:"practice", answers:{}, graded:false, filter:"all", onlyWrong:false, order:null };
+let S = { mode:"practice", answers:{}, gd:{}, filter:"all", onlyWrong:false, order:null };
 
 function load(){
   try{
@@ -281,13 +281,14 @@ function load(){
     if(o && typeof o === "object"){
       S.mode = o.mode === "exam" ? "exam" : "practice";
       S.answers = (o.answers && typeof o.answers === "object") ? o.answers : {};
-      S.graded = !!o.graded;
+      S.gd = (o.gd && typeof o.gd === "object") ? o.gd : {};
+      if(o.graded === true && !o.gd){ Q.forEach(q => { S.gd[q.id] = true; }); }   // 예전 저장본(전체 채점) 호환
       S.order = Array.isArray(o.order) ? o.order : null;
     }
   }catch(e){}
 }
 function save(){
-  try{ localStorage.setItem(LS_KEY, JSON.stringify({mode:S.mode, answers:S.answers, graded:S.graded, order:S.order})); }catch(e){}
+  try{ localStorage.setItem(LS_KEY, JSON.stringify({mode:S.mode, answers:S.answers, gd:S.gd, order:S.order})); }catch(e){}
 }
 
 const byId = Object.fromEntries(Q.map(q => [q.id, q]));
@@ -295,7 +296,19 @@ const el = id => document.getElementById(id);
 
 function revealed(q){
   if(S.mode === "practice") return S.answers[q.id] !== undefined;
-  return S.graded;
+  return !!S.gd[q.id];
+}
+function scopeQs(){
+  if(S.filter === "hint") return Q.filter(q => q.hint);
+  if(S.filter === "adv") return Q.filter(q => q.adv);
+  if(S.filter !== "all") return Q.filter(q => q.unit === S.filter);
+  return Q;
+}
+function scopeName(){
+  if(S.filter === "all") return "전체";
+  if(S.filter === "hint") return "★ 출제 경향";
+  if(S.filter === "adv") return "심화 추가";
+  return uname[S.filter] || "";
 }
 function isCorrect(q){ return S.answers[q.id] === q.ans; }
 
@@ -385,7 +398,7 @@ function card(q){
     const lab = document.createElement("label"); lab.className = "opt";
     const inp = document.createElement("input"); inp.type = "radio"; inp.name = "q" + q.id; inp.value = String(i);
     inp.checked = picked === i;
-    const locked = S.mode === "practice" ? picked !== undefined : S.graded;
+    const locked = S.mode === "practice" ? picked !== undefined : !!S.gd[q.id];
     inp.disabled = locked;
     if(locked) lab.classList.add("locked");
     if(rev){
@@ -433,23 +446,28 @@ function renderList(){
   const t = el("wrongToggle"); if(t) t.hidden = !any;
 }
 
-function counts(){
-  const done = Q.filter(q => S.answers[q.id] !== undefined).length;
-  const shown = Q.filter(q => revealed(q));
+function counts(list){
+  list = list || Q;
+  const done = list.filter(q => S.answers[q.id] !== undefined).length;
+  const shown = list.filter(q => revealed(q));
   const correct = shown.filter(q => isCorrect(q)).length;
-  return {done, correct, shownCount: shown.length};
+  return {done, correct, shownCount: shown.length, total: list.length};
 }
 
 function renderStat(){
-  const c = counts();
-  el("sTotal").textContent = Q.length;
+  const sq = scopeQs();
+  const c = counts(sq);
+  const pending = S.mode === "exam" && sq.some(q => !S.gd[q.id]);
+  el("sTotal").textContent = c.total;
   el("sDone").textContent = c.done;
-  el("sCorrect").textContent = S.mode === "exam" && !S.graded ? "–" : c.correct;
-  el("sMode").textContent = S.mode === "exam" && !S.graded ? " · 채점 전" : "";
-  el("meter").style.width = (c.done / Q.length * 100) + "%";
+  el("sCorrect").textContent = S.mode === "exam" && c.shownCount === 0 ? "–" : c.correct;
+  el("sMode").textContent = (S.filter === "all" ? "" : " · " + scopeName()) + (S.mode === "exam" && c.shownCount === 0 ? " · 채점 전" : "");
+  el("meter").style.width = (c.total ? c.done / c.total * 100 : 0) + "%";
   el("mPractice").setAttribute("aria-pressed", String(S.mode === "practice"));
   el("mExam").setAttribute("aria-pressed", String(S.mode === "exam"));
-  el("bGrade").hidden = !(S.mode === "exam" && !S.graded);
+  const g = el("bGrade");
+  g.hidden = !pending;
+  g.textContent = S.filter === "all" ? "전체 채점하기" : (S.filter === "hint" || S.filter === "adv" ? "이 묶음 채점하기" : "이 단원 채점하기");
 }
 
 function renderResult(){
@@ -467,6 +485,14 @@ function renderResult(){
   sm.textContent = "/ " + c.shownCount + " 문항 정답 (" + Math.round(c.correct / c.shownCount * 100) + "%)";
   sc.appendChild(sm); box.appendChild(sc);
 
+  if(S.filter !== "all"){
+    const sc2 = counts(scopeQs());
+    if(sc2.shownCount){
+      const ln = document.createElement("p"); ln.style.cssText = "margin:8px 0 0;font-size:14px;font-weight:700";
+      ln.textContent = "지금 보는 범위(" + scopeName() + "): " + sc2.correct + " / " + sc2.shownCount + " 정답 (" + Math.round(sc2.correct / sc2.shownCount * 100) + "%)";
+      box.appendChild(ln);
+    }
+  }
   const bars = document.createElement("div"); bars.className = "ubars";
   UNITS.forEach(u => {
     const qs = Q.filter(q => q.unit === u[0] && revealed(q));
@@ -476,7 +502,7 @@ function renderResult(){
     const n = document.createElement("span"); n.textContent = u[1];
     const tr = document.createElement("span"); tr.className = "track";
     const fi = document.createElement("i"); fi.style.width = (ok / qs.length * 100) + "%"; tr.appendChild(fi);
-    const r = document.createElement("span"); r.textContent = ok + "/" + qs.length;
+    const r = document.createElement("span"); r.textContent = ok + "/" + qs.length + " (" + Math.round(ok / qs.length * 100) + "%)";
     row.append(n, tr, r); bars.appendChild(row);
   });
   box.appendChild(bars);
@@ -510,7 +536,7 @@ function choose(id, i){
     renderStat(); renderResult();
     const t = el("wrongToggle"); if(t) t.hidden = !Q.some(x => revealed(x) && S.answers[x.id] !== undefined && !isCorrect(x));
   }else{
-    if(S.graded) return;
+    if(S.gd[id]) return;
     S.answers[id] = i; save();
     const old = el("q" + id); if(old) old.replaceWith(card(q));
     renderStat();
@@ -521,20 +547,23 @@ function setMode(m){
   if(S.mode === m) return;
   const has = Object.keys(S.answers).length > 0;
   if(has && !confirm("풀이 방식을 바꾸면 지금까지의 답안이 초기화돼요. 계속할까요?")) return;
-  S.mode = m; S.answers = {}; S.graded = false; S.onlyWrong = false; save(); render();
+  S.mode = m; S.answers = {}; S.gd = {}; S.onlyWrong = false; save(); render();
   window.scrollTo({top:0});
 }
 
 function grade(){
-  const left = Q.filter(q => S.answers[q.id] === undefined).length;
-  if(left && !confirm(left + "문항이 비어 있어요. 그래도 채점할까요?")) return;
-  S.graded = true; save(); render();
+  const sq = scopeQs().filter(q => !S.gd[q.id]);
+  if(!sq.length) return;
+  const left = sq.filter(q => S.answers[q.id] === undefined).length;
+  if(left && !confirm(scopeName() + "에서 " + left + "문항이 비어 있어요. 그래도 채점할까요?")) return;
+  sq.forEach(q => { S.gd[q.id] = true; });
+  save(); render();
   el("result").scrollIntoView({block:"start"});
 }
 
 function reset(){
   if(Object.keys(S.answers).length && !confirm("모든 답안을 지우고 처음부터 시작할까요?")) return;
-  S.answers = {}; S.graded = false; S.onlyWrong = false; S.filter = "all"; save(); render();
+  S.answers = {}; S.gd = {}; S.onlyWrong = false; S.filter = "all"; save(); render();
   window.scrollTo({top:0});
 }
 
