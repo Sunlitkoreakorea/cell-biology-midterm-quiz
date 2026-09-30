@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>세포생물학 중간고사 4지선다 100제</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A7%AC%3C/text%3E%3C/svg%3E">
+<meta name="description" content="세포생물학의 이해 중간고사 범위(세포·현미경·모델생물, 지질, 탄수화물, DNA, 염색체, 아미노산·단백질 구조, 효소) 4지선다 100문항과 해설.">
+<style>
+  :root{
+    --bg:#f7f6f3;
+    --surface:#ffffff;
+    --surface-2:#faf9f6;
+    --border:#e6e3dc;
+    --text:#1c1a17;
+    --muted:#6b6558;
+    --accent:#b45309;
+    --accent-soft:#fdf0e3;
+    --ok:#15803d;
+    --ok-soft:#e8f5ec;
+    --bad:#b91c1c;
+    --bad-soft:#fdeceb;
+    --shadow: 0 1px 2px rgba(28,26,23,0.04), 0 8px 24px rgba(28,26,23,0.06);
+    --u-cell:#0e7490; --u-lipid:#b45309; --u-carb:#a16207; --u-dna:#7c3aed;
+    --u-chrom:#be185d; --u-aa:#15803d; --u-enz:#1d4ed8;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#15130f;
+      --surface:#1f1c17;
+      --surface-2:#252119;
+      --border:#332e26;
+      --text:#f2ede4;
+      --muted:#a89e8c;
+      --accent:#e0975a;
+      --accent-soft:#2b2118;
+      --ok:#4ade80;
+      --ok-soft:#14261b;
+      --bad:#f87171;
+      --bad-soft:#2b1717;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+      --u-cell:#22d3ee; --u-lipid:#e0975a; --u-carb:#facc15; --u-dna:#a78bfa;
+      --u-chrom:#f472b6; --u-aa:#4ade80; --u-enz:#60a5fa;
+    }
+  }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; scroll-padding-top:72px; }
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Pretendard","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",Arial,sans-serif;
+    line-height:1.6;
+  }
+  .wrap{ max-width:880px; margin:0 auto; padding:0 16px; }
+
+  /* ── hero ── */
+  .hero{ padding:56px 0 24px; }
+  .eyebrow{
+    display:inline-block; font-size:12px; font-weight:700; letter-spacing:.08em;
+    color:var(--accent); background:var(--accent-soft);
+    padding:4px 10px; border-radius:999px; margin-bottom:16px;
+  }
+  h1{ font-size:clamp(26px,4.4vw,36px); line-height:1.25; margin:0 0 12px; letter-spacing:-.01em; }
+  .hero p{ margin:0 0 8px; color:var(--muted); font-size:15px; max-width:64ch; }
+  .scope{
+    margin-top:16px; padding:14px 16px; background:var(--surface); border:1px solid var(--border);
+    border-radius:12px; font-size:13.5px; color:var(--muted);
+  }
+  .scope b{ color:var(--text); }
+
+  /* ── toolbar ── */
+  .bar{
+    position:sticky; top:0; z-index:20;
+    background:color-mix(in srgb, var(--bg) 92%, transparent);
+    backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--border);
+  }
+  .bar-in{ display:flex; flex-wrap:wrap; align-items:center; gap:10px 14px; padding:8px 0; min-height:46px; }
+  .tools{ display:flex; flex-wrap:wrap; align-items:center; gap:8px 8px; padding:8px 0 20px; }
+  .stat{ font-size:13.5px; color:var(--muted); font-variant-numeric:tabular-nums; margin-right:auto; }
+  .stat b{ color:var(--text); font-size:15px; }
+  .meter{ height:4px; background:var(--border); }
+  .meter > i{ display:block; height:100%; width:0; background:var(--accent); transition:width .25s ease; }
+  .seg{ display:inline-flex; border:1px solid var(--border); border-radius:999px; overflow:hidden; background:var(--surface); }
+  .seg button{
+    border:0; background:transparent; color:var(--muted); font:inherit; font-size:13px; font-weight:600;
+    padding:6px 14px; cursor:pointer;
+  }
+  .seg button[aria-pressed="true"]{ background:var(--accent); color:#fff; }
+  .btn{
+    border:1px solid var(--border); background:var(--surface); color:var(--text); font:inherit; font-size:13px; font-weight:600;
+    padding:6px 12px; border-radius:999px; cursor:pointer;
+  }
+  .btn:hover{ border-color:var(--accent); }
+  .btn.primary{ background:var(--accent); border-color:var(--accent); color:#fff; }
+  .btn[hidden]{ display:none; }
+  button:focus-visible, .opt:focus-within, a:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+
+  /* ── chips ── */
+  .chips{ display:flex; flex-wrap:wrap; gap:8px; padding:16px 0 4px; }
+  .chip{
+    border:1px solid var(--border); background:var(--surface); color:var(--text); font:inherit; font-size:13px;
+    padding:6px 12px; border-radius:999px; cursor:pointer; display:inline-flex; align-items:center; gap:6px;
+  }
+  .chip i{ width:8px; height:8px; border-radius:50%; background:var(--c, var(--muted)); display:inline-block; }
+  .chip small{ color:var(--muted); font-size:12px; }
+  .chip[aria-pressed="true"]{ border-color:var(--accent); background:var(--accent-soft); font-weight:700; }
+  .toggle{ font-size:13px; color:var(--muted); display:inline-flex; align-items:center; gap:6px; margin-left:auto; cursor:pointer; }
+  .toggle[hidden]{ display:none; }
+
+  /* ── question card ── */
+  #list{ display:flex; flex-direction:column; gap:14px; padding:12px 0 28px; }
+  .q{
+    background:var(--surface); border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow);
+    padding:18px 18px 16px;
+  }
+  .q.is-ok{ border-color:color-mix(in srgb, var(--ok) 55%, var(--border)); }
+  .q.is-bad{ border-color:color-mix(in srgb, var(--bad) 55%, var(--border)); }
+  .q-head{ display:flex; align-items:center; flex-wrap:wrap; gap:8px 10px; margin-bottom:10px; }
+  .num{ font-weight:800; font-size:15px; color:var(--accent); letter-spacing:.02em; }
+  .tag{
+    font-size:11.5px; font-weight:700; color:var(--c); border:1px solid color-mix(in srgb, var(--c) 40%, var(--border));
+    background:color-mix(in srgb, var(--c) 8%, var(--surface)); padding:2px 8px; border-radius:999px;
+  }
+  .lv{ font-size:11.5px; color:var(--muted); margin-left:auto; white-space:nowrap; }
+  .lv i{ font-style:normal; letter-spacing:1px; color:var(--accent); }
+  .stem{ font-size:15.5px; font-weight:600; margin:0 0 10px; white-space:pre-line; word-break:keep-all; }
+  .box{
+    margin:0 0 12px; padding:10px 14px; background:var(--surface-2); border:1px solid var(--border);
+    border-left:3px solid var(--accent); border-radius:8px; font-size:14px; white-space:pre-line; word-break:keep-all;
+  }
+  .box .cap{ display:block; font-size:11.5px; font-weight:800; color:var(--accent); margin-bottom:4px; letter-spacing:.06em; }
+  .opts{ display:flex; flex-direction:column; gap:8px; margin:0; padding:0; border:0; }
+  .opt{
+    display:flex; gap:10px; align-items:flex-start; padding:10px 12px; border:1px solid var(--border);
+    border-radius:10px; cursor:pointer; background:var(--surface); font-size:14.5px; transition:border-color .12s ease, background .12s ease;
+  }
+  .opt:hover{ border-color:var(--accent); }
+  .opt input{ position:absolute; opacity:0; pointer-events:none; }
+  .opt .mark{
+    flex:0 0 auto; width:24px; height:24px; border-radius:50%; border:1.5px solid var(--border);
+    display:inline-flex; align-items:center; justify-content:center; font-size:12.5px; font-weight:700; color:var(--muted); margin-top:1px;
+  }
+  .opt .txt{ white-space:pre-line; word-break:keep-all; }
+  .opt.picked{ border-color:var(--accent); background:var(--accent-soft); }
+  .opt.picked .mark{ background:var(--accent); border-color:var(--accent); color:#fff; }
+  .opt.correct{ border-color:var(--ok); background:var(--ok-soft); }
+  .opt.correct .mark{ background:var(--ok); border-color:var(--ok); color:#fff; }
+  .opt.wrong{ border-color:var(--bad); background:var(--bad-soft); }
+  .opt.wrong .mark{ background:var(--bad); border-color:var(--bad); color:#fff; }
+  .opt.locked{ cursor:default; }
+  .opt.locked:hover{ border-color:var(--border); }
+  .opt.correct.locked:hover{ border-color:var(--ok); }
+  .opt.wrong.locked:hover{ border-color:var(--bad); }
+  .exp{
+    margin-top:12px; padding:12px 14px; background:var(--surface-2); border:1px solid var(--border); border-radius:10px;
+    font-size:14px;
+  }
+  .exp .verdict{ font-weight:800; margin-bottom:4px; }
+  .exp .verdict.ok{ color:var(--ok); }
+  .exp .verdict.bad{ color:var(--bad); }
+  .exp p{ margin:0; color:var(--text); word-break:keep-all; }
+  .exp .retry{ margin-top:10px; }
+  .empty{ text-align:center; color:var(--muted); padding:36px 0; }
+
+  /* ── result ── */
+  .result{
+    background:var(--surface); border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow);
+    padding:20px; margin:0 0 28px;
+  }
+  .result h2{ margin:0 0 12px; font-size:18px; }
+  .score{ font-size:34px; font-weight:800; color:var(--accent); font-variant-numeric:tabular-nums; }
+  .score small{ font-size:15px; color:var(--muted); font-weight:600; }
+  .ubars{ display:grid; gap:8px; margin:16px 0 4px; }
+  .ubar{ display:grid; grid-template-columns:minmax(120px,190px) 1fr 64px; align-items:center; gap:10px; font-size:13px; }
+  .ubar .track{ height:8px; background:var(--border); border-radius:99px; overflow:hidden; }
+  .ubar .track i{ display:block; height:100%; background:var(--c); }
+  .ubar span:last-child{ text-align:right; color:var(--muted); font-variant-numeric:tabular-nums; }
+  .wrongs{ margin-top:14px; font-size:13.5px; color:var(--muted); }
+  .wrongs a{ color:var(--bad); font-weight:700; text-decoration:none; margin-right:8px; white-space:nowrap; }
+  @media (max-width:520px){ .ubar{ grid-template-columns:1fr 1fr 56px; } .ubar .track{ grid-column:1 / -1; order:3; } }
+
+  /* ── answer key overlay ── */
+  .veil{ position:fixed; inset:0; z-index:40; background:rgba(0,0,0,.45); display:none; align-items:flex-start; justify-content:center; padding:24px 12px; overflow:auto; }
+  .veil.on{ display:flex; }
+  .sheet{ background:var(--surface); border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow); width:100%; max-width:720px; padding:20px; }
+  .sheet-top{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:12px; }
+  .sheet-top h2{ margin:0; font-size:18px; }
+  .keygrid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(86px,1fr)); gap:8px; }
+  .keygrid div{ border:1px solid var(--border); border-radius:8px; padding:6px 8px; font-size:13px; display:flex; justify-content:space-between; background:var(--surface-2); font-variant-numeric:tabular-nums; }
+  .keygrid b{ color:var(--accent); }
+
+  footer{ border-top:1px solid var(--border); padding:20px 0 56px; font-size:12.5px; color:var(--muted); }
+  footer a{ color:var(--muted); }
+
+  #printKey{ display:none; }
+  @media print{
+    body{ background:#fff; color:#000; font-size:11pt; }
+    .bar,.tools,.chips,.hero p,.scope,.result,.veil,footer,.exp,.toggle{ display:none !important; }
+    .hero{ padding:0 0 8pt; } .eyebrow{ display:none; } h1{ font-size:18pt; }
+    .q{ box-shadow:none; border:1px solid #999; break-inside:avoid; margin-bottom:6pt; padding:8pt 10pt; }
+    .opt{ border:0; padding:2pt 0; } .opt .mark{ border-color:#000; color:#000; background:none !important; }
+    .opt.picked,.opt.correct,.opt.wrong{ background:none !important; }
+    #printKey{ display:block; break-before:page; }
+    #printKey h2{ font-size:14pt; } #printKey p{ margin:0 0 4pt; font-size:10pt; break-inside:avoid; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <span class="eyebrow">CELL BIOLOGY · MIDTERM</span>
+      <h1>세포생물학의 이해<br>중간고사 4지선다 100제</h1>
+      <p>공지된 시험 범위와 강의자료(슬라이드·필기·수업 녹취)를 바탕으로 만든 연습 문제입니다. 문항마다 해설이 붙어 있어요.</p>
+      <div class="scope"><b>범위</b> 1차시 세포생물학 역사·현미경(Cryo-EM 제외)·모델생물체 · 2차시 지질 · 탄수화물 · 3차시 DNA · 염색체(슬라이드 27쪽까지) · 4차시 아미노산과 단백질의 구조(47쪽까지) · 효소<br><b>참고</b> 실제 시험은 5지선다 + 단답·서논술형입니다. 이 문제집은 개념 점검용 4지선다입니다.</div>
+    </header>
+  </div>
+
+  <div class="wrap">
+    <div class="tools">
+      <div class="seg" role="group" aria-label="풀이 방식">
+        <button type="button" id="mPractice" aria-pressed="true">연습(즉시 채점)</button>
+        <button type="button" id="mExam" aria-pressed="false">시험(한 번에 채점)</button>
+      </div>
+      <button type="button" class="btn" id="bKey">정답표</button>
+      <button type="button" class="btn" id="bShuffle">순서 섞기</button>
+      <button type="button" class="btn" id="bReset">처음부터</button>
+      <button type="button" class="btn" id="bPrint">인쇄</button>
+    </div>
+  </div>
+
+  <div class="bar">
+    <div class="wrap">
+      <div class="bar-in">
+        <div class="stat" aria-live="polite"><b id="sCorrect">0</b> 정답 · <span id="sDone">0</span>/<span id="sTotal">100</span> 풀이<span id="sMode"></span></div>
+        <button type="button" class="btn primary" id="bGrade" hidden>채점하기</button>
+      </div>
+    </div>
+    <div class="meter"><i id="meter"></i></div>
+  </div>
+
+  <div class="wrap">
+    <nav class="chips" id="chips" aria-label="단원 필터"></nav>
+    <main id="list"></main>
+    <section class="result" id="result" aria-labelledby="rTitle">
+      <h2 id="rTitle">결과</h2>
+      <div id="rBody"></div>
+    </section>
+    <footer>세포생물학의 이해 · 연습용 문제집 (비공식) · 정확한 범위와 표현은 강의자료와 공지를 우선하세요.</footer>
+  </div>
+
+  <div class="veil" id="veil" role="dialog" aria-modal="true" aria-labelledby="kTitle">
+    <div class="sheet">
+      <div class="sheet-top"><h2 id="kTitle">정답표</h2><button type="button" class="btn" id="kClose">닫기</button></div>
+      <div class="keygrid" id="keygrid"></div>
+    </div>
+  </div>
+
+  <div id="printKey"></div>
+
+<script>
+const Q = [{"id":1,"unit":"cell","lv":1,"stem":"세포의 발견과 관련된 설명으로 옳은 것은?","box":null,"choices":["후크(1665)는 광학현미경으로 코르크를 관찰해 ‘세포(cell)’라는 용어를 만들었는데, 그가 본 것은 죽은 세포의 세포벽이었다.","후크는 살아 있는 원생동물을 최초로 관찰하고 ‘세포’라는 용어를 만들었다.","레벤후크가 코르크 절편에서 세포벽을 관찰하고 ‘세포’라는 이름을 붙였다.","후크가 식물세포를, 슈반이 동물세포를 관찰한 것을 바탕으로 1665년에 세포학설이 제창되었다."],"ans":0,"exp":"후크(1665)는 코르크의 세포벽(죽은 세포)을 보고 cell(작은 방)이라 이름 붙였다. 살아 있는 세포(원생동물, 이후 박테리아)를 처음 본 사람은 레벤후크이고, 세포학설은 슐라이덴(1838, 식물)·슈반(1839, 동물)이 제창했다."},{"id":2,"unit":"cell","lv":1,"stem":"세포학설(cell theory)에 대한 설명으로 옳지 않은 것은?","box":null,"choices":["슐라이덴의 식물세포 관찰과 슈반의 동물세포 관찰에서 비롯되었다.","세포는 모든 살아 있는 조직의 기본 구성단위라는 내용을 포함한다.","생물이 무생물로부터 저절로 생겨난다는 자연발생설을 뒷받침하는 이론이다.","세포는 이미 존재하던 세포가 분열하여 생겨난다는 내용을 포함한다."],"ans":2,"exp":"세포학설은 자연발생설과 대립하는 개념이다. 세포는 모든 생물의 기본 단위이며, 새로운 세포는 기존 세포의 분열로만 생긴다."},{"id":3,"unit":"cell","lv":2,"stem":"파스퇴르는 목이 백조처럼 길게 휜 플라스크에 가열한 육즙을 넣어 두었다. 몇 주가 지나도 육즙은 부패하지 않았지만, 플라스크의 목을 깨뜨려 공기가 직접 통하게 하자 곧 미생물이 증식했다. 이 실험으로 지지되는 내용은?","box":null,"choices":["공기 중의 산소가 육즙 속 물질을 미생물로 변하게 한다.","생물은 이미 존재하는 생물(세포)로부터만 생겨난다(생물속생설).","가열한 육즙에서도 미생물이 저절로 생겨난다(자연발생설).","미생물은 육즙 속에서 무작위적 변이와 자연선택을 거쳐 진화한다."],"ans":1,"exp":"백조목은 외부 미생물의 유입을 막는다. 목을 깨뜨렸을 때만 생물이 나타났으므로 외부에서 세포가 들어와야 생물이 생긴다는 것, 즉 생물속생설과 세포학설이 증명된다."},{"id":4,"unit":"cell","lv":2,"stem":"다음 사건을 일어난 시기가 빠른 순서대로 옳게 나열한 것은?","box":["(가) 슈반이 동물세포를 관찰하였다.","(나) 후크가 코르크를 관찰하여 ‘세포’라는 용어를 만들었다.","(다) 다윈이 무작위적 변이와 자연선택에 의한 진화론을 발표하였다.","(라) 골지가 질산은 염색으로 골지체를 최초로 관찰하였다."],"choices":["(나) → (다) → (가) → (라)","(가) → (나) → (다) → (라)","(나) → (가) → (다) → (라)","(나) → (가) → (라) → (다)"],"ans":2,"exp":"(나) 후크 1665 → (가) 슈반의 동물세포 관찰 1839 → (다) 다윈의 진화론 1859 → (라) 골지의 골지체 관찰 1898 순이다."},{"id":5,"unit":"cell","lv":2,"stem":"세포 구조 발견의 역사에서 인물과 업적의 짝이 옳지 않은 것은?","box":null,"choices":["쾰리커(1857) – 근육세포에서 미토콘드리아를 최초로 발견하였다.","챌피(1994) – 세포분획법으로 쥐 간 조직에서 퍼옥시솜·미토콘드리아·리소좀을 분리하였다.","골지(1898) – 질산은으로 염색하여 골지체를 최초로 관찰하였다.","로버트슨(1957) – 전자현미경으로 세포막의 이중층 구조를 밝혔다."],"ans":1,"exp":"세포분획법으로 퍼옥시솜·미토콘드리아·리소좀을 분리한 것은 드 뒤브(1965)이다. 챌피(1994)는 살아 있는 세포 안 단백질을 관찰할 표지로 녹색형광단백질(GFP)을 도입했다."},{"id":6,"unit":"cell","lv":2,"stem":"다음 조건을 모두 만족하는 관찰에 가장 적합한 현미경은?","box":["· 염색하지 않은 살아 있는 세포와 배아를 관찰한다.","· 시료는 얇고 투명하다.","· 위상차현미경에서 나타나는 후광 효과 없이 더 높은 해상도로 관찰하고 싶다."],"choices":["명시야현미경","위상차현미경","미분간섭대조현미경(DIC)","주사전자현미경(SEM)"],"ans":2,"exp":"염색 없이 살아 있는 투명한 시료를 관찰하는 것은 위상차현미경과 DIC의 공통점이지만, DIC는 위상차현미경의 후광 효과(halo)가 없고 해상도가 더 높다. 명시야현미경은 염색을 위한 고정이 필요해 살아 있는 시료를 볼 수 없고, SEM은 금속으로 코팅한 시료의 표면을 본다."},{"id":7,"unit":"cell","lv":2,"stem":"관찰 도구와 분해능(해상력)의 대략적인 값이 옳게 짝지어진 것은?","box":null,"choices":["광학현미경 – 약 20 nm","초해상능 형광현미경 – 약 200 nm","전자현미경 – 약 2 μm","사람의 눈 – 약 0.2 mm"],"ans":3,"exp":"눈 약 0.2 mm(200 μm) → 광학현미경 약 200 nm(0.2 μm) → 초해상능 형광현미경 약 20 nm → 전자현미경 약 0.2 nm(생물 표본 TEM은 약 1 nm) 순으로 좋아진다."},{"id":8,"unit":"cell","lv":2,"stem":"전자현미경에 대한 설명으로 옳은 것은?","box":null,"choices":["주사전자현미경(SEM)은 금속으로 코팅한 시료 표면에 전자선을 쏘아 반사된 전자를 검출하여 세포 표면의 입체 영상을 얻는다.","투과전자현미경(TEM)은 시료 표면에서 반사된 전자를 검출하므로 세포의 외부 형태 연구에 적합하다.","교과서에 실린 컬러 TEM 사진의 색은 세포 구조물이 실제로 가진 색이다.","전자현미경도 빛의 파동성 때문에 분해능이 광학현미경과 같은 약 200 nm로 제한된다."],"ans":0,"exp":"SEM은 표면(Surface), TEM은 단면(얇게 자른 시료를 투과)을 본다. TEM은 흑백 영상이며 컬러 사진은 인위적으로 채색한 것이다. 전자선을 쓰므로 분해능이 광학현미경보다 훨씬 좋다."},{"id":9,"unit":"cell","lv":2,"stem":"광학현미경의 분해능에 대한 <보기>의 설명 중 옳은 것만을 있는 대로 고른 것은?","box":["ㄱ. 분해능은 가까이 있는 두 점을 서로 다른 점으로 구분해 내는 능력이다.","ㄴ. 배율을 계속 높이면 분해능의 한계 없이 더 작은 구조를 구분할 수 있다.","ㄷ. 광학현미경의 분해능 한계(약 0.2 μm)는 렌즈 제작 기술이 아니라 빛의 파동성에서 비롯된다."],"choices":["ㄱ","ㄱ, ㄷ","ㄴ, ㄷ","ㄱ, ㄴ, ㄷ"],"ans":1,"exp":"분해능은 가까운 두 점을 구분하는 능력이다(ㄱ). 배율을 아무리 높여도 분해능이 낮으면 두 점이 뭉쳐 보이며(ㄴ 오답), 광학현미경의 한계(약 0.2 μm)는 렌즈의 문제가 아니라 빛의 파동성 때문이다(ㄷ)."},{"id":10,"unit":"cell","lv":1,"stem":"다음 특징을 모두 갖춘 모델생물체는?","box":["· 세대주기가 약 3일이다.","· 체세포 959개의 세포 계보 전체가 규명되었다.","· 최초로 신경계 전체의 커넥톰이 완성되었다.","· 예정세포사와 RNA 간섭 연구의 표준 모델이다."],"choices":["예쁜꼬마선충","노랑초파리","제브라피시","애기장대"],"ans":0,"exp":"예쁜꼬마선충은 세대주기 약 3일, 체세포 959개의 세포 계보가 모두 규명되었고 최초로 신경계 전체의 커넥톰이 완성되었으며 예정세포사(apoptosis)·RNA 간섭 연구의 표준이다."},{"id":11,"unit":"cell","lv":2,"stem":"모델생물체를 세대주기가 짧은 것부터 옳게 나열한 것은?","box":null,"choices":["대장균 – 효모 – 노랑초파리 – 예쁜꼬마선충 – 제브라피시","효모 – 대장균 – 예쁜꼬마선충 – 노랑초파리 – 제브라피시","대장균 – 예쁜꼬마선충 – 효모 – 제브라피시 – 노랑초파리","대장균 – 효모 – 예쁜꼬마선충 – 노랑초파리 – 제브라피시"],"ans":3,"exp":"대장균 약 20분 < 효모 약 90분 < 예쁜꼬마선충 약 3일 < 노랑초파리 약 10일 < 제브라피시 약 3개월 순이다. 세대주기가 짧을수록 다세대 유전 실험에 유리하다."},{"id":12,"unit":"cell","lv":3,"stem":"모델생물체와 그에 관한 설명이 옳게 짝지어진 것은?","box":null,"choices":["애기장대 – 최초로 전체 유전체가 해독된 진핵생물이다.","효모 – 최초로 전체 유전체가 해독된 진핵생물이며, 세포주기 조절 유전자(CDC) 연구에 쓰였다.","대장균 – 배아줄기세포를 이용한 유전자 적중(knockout) 기술이 확립되었다.","제브라피시 – 세포 계보가 전부 규명되어 예정세포사 연구의 표준 모델이다."],"ans":1,"exp":"효모(1996)가 최초로 유전체가 해독된 진핵생물이다. 애기장대는 최초로 유전체가 해독된 ‘식물’(2000)이다. 유전자 적중 기술은 생쥐에서 확립되었고, 세포 계보 전체가 규명된 것은 예쁜꼬마선충이다."},{"id":13,"unit":"lipid","lv":1,"stem":"지질에 대한 설명으로 옳은 것은?","box":null,"choices":["대부분 극성이 작은 C–H 결합의 탄화수소로 이루어져 물에 잘 녹지 않고 유기용매에 잘 녹는다.","지방산이 단위체로 반복 연결된 중합체이다.","글리세롤 골격을 공통으로 가지는 분자들을 묶은 범주이다.","지방산은 카복실기를 가지므로 물에 잘 녹는 친수성 분자이다."],"ans":0,"exp":"지질은 단위체가 없어 중합체가 아니며, ‘물에 잘 섞이지 않는 소수성’이라는 성질로 묶은 범주이다. 지방산도 카복실기가 있지만 긴 탄화수소 사슬 때문에 소수성이다."},{"id":14,"unit":"lipid","lv":1,"stem":"지방산에 대한 설명으로 옳은 것은?","box":null,"choices":["cis-불포화지방산은 이중결합 부위에서 사슬이 꺾여 조밀하게 쌓이기 어려우므로 유동성이 높고 상온에서 액체인 경우가 많다.","포화지방산은 이중결합을 하나 이상 가지며 주로 식물성 기름에 많다.","자연계의 불포화지방산은 대부분 trans형이다.","포화지방산은 사슬이 많이 꺾여 있어 상온에서 액체이다."],"ans":0,"exp":"포화지방산은 이중결합이 없어 곧게 펴져 쌓일 수 있으므로 고체(동물성 지방)이고, cis-불포화지방산은 꺾여서 액체(식물성 기름)이다. 자연계 불포화지방산은 대부분 cis형이다."},{"id":15,"unit":"lipid","lv":2,"stem":"트랜스지방산이 상온에서 고체로 존재하고 혈관에 쌓이기 쉬운 것은 어떤 구조적 특징 때문인가?","box":null,"choices":["이중결합이 없어 사슬이 수소로 포화되어 있기 때문이다.","이중결합의 원자단이 같은 편에 있어 사슬이 크게 꺾이기 때문이다.","이중결합 양쪽의 원자단이 서로 반대편에 있어 사슬이 거의 꺾이지 않고 곧게 펴져 포화지방산처럼 조밀하게 쌓이기 때문이다.","카복실기가 없어 극성이 전혀 없기 때문이다."],"ans":2,"exp":"trans형은 이중결합이 있어도 사슬이 곧게 펴져 포화지방산과 비슷하게 스태킹(쌓임)이 가능하다. 튀김 등 고열 처리나 액상 식물성 지방에 수소를 강제 첨가(마가린)할 때 생기는 인공적 지방산이다."},{"id":16,"unit":"lipid","lv":2,"stem":"중성지방(트리아실글리세롤)에 대한 설명으로 옳지 않은 것은?","box":null,"choices":["글리세롤 1분자에 지방산 3분자가 에스터 결합한 구조이다.","글리세롤과 지방산은 탈수 축합 반응으로 글리코시드 결합을 이룬다.","1 g당 저장되는 에너지량이 탄수화물보다 많다.","동물의 피하 등에 저장되어 체온 유지(단열)에도 기여한다."],"ans":1,"exp":"글리세롤과 지방산 사이는 에스터 결합이다(글리코시드 결합은 당과 당 사이). 중성지방은 1 g당 약 9 kcal로 탄수화물(약 4 kcal)의 두 배 이상이다."},{"id":17,"unit":"lipid","lv":1,"stem":"수용액에서 인지질 이중층이 자발적으로 형성되는 까닭으로 가장 적절한 것은?","box":null,"choices":["인지질의 머리는 소수성이고 꼬리는 친수성이어서 꼬리끼리 물과 접하기 때문이다.","이중층을 만들려면 ATP가 가수분해되어 에너지가 공급되어야 하기 때문이다.","인접한 인지질 분자들 사이에 공유결합이 새로 형성되어 고정되기 때문이다.","인지질은 친수성 머리와 소수성 꼬리를 모두 가진 양친매성이어서, 소수성 꼬리는 물을 피해 안쪽으로 모이고 친수성 머리는 물과 접하기 때문이다."],"ans":3,"exp":"인지질은 1개의 친수성 머리(글리세롤+인산염+@)와 2개의 소수성 지방산 꼬리를 가진 양친매성 분자이다. 물속에서 소수성 힘에 의해 스스로 이중층으로 조립되며 외부 에너지가 필요하지 않다."},{"id":18,"unit":"lipid","lv":2,"stem":"인지질의 분류에 대한 설명으로 옳은 것은?","box":null,"choices":["스핑고미엘린은 글리세롤 골격에 콜린이 붙은 글리세로인지질이다.","포스파티딜콜린·포스파티딜에탄올아민·포스파티딜세린은 글리세롤을 기본 골격으로 하는 글리세로인지질이다.","스핑고인지질은 인산기를 포함하지 않는다는 점에서 글리세로인지질과 구별된다.","글리세로인지질과 스핑고인지질은 기본 골격이 같고 지방산의 조성만 다르다."],"ans":1,"exp":"인지질은 ‘지질 골격에 인산기를 가진 분자’이며 글리세로인지질은 글리세롤, 스핑고인지질(스핑고미엘린)은 스핑고신을 기본 골격으로 한다. 둘의 공통점은 인산기를 포함한다는 것이다."},{"id":19,"unit":"lipid","lv":3,"stem":"세포막을 구성하는 인지질에 대한 설명으로 옳은 것은?","box":null,"choices":["스핑고미엘린은 대부분 안쪽 층에 분포하며 세포막 인지질 중 가장 많은 비율을 차지한다.","포스파티딜콜린은 전체 인지질의 약 5~15%로 가장 적고 안쪽 층에 편중되어 있다.","포스파티딜에탄올아민은 대부분 바깥쪽 층에 분포하며 막의 곡률 형성에 관여한다.","포스파티딜세린은 정상 세포에서 세포막 안쪽 층에만 존재하다가, 바깥쪽으로 노출되면 세포사멸(apoptosis)의 표지 신호로 작용한다."],"ans":3,"exp":"PC는 약 40~50%로 가장 많고 바깥쪽 층(70%)에 많다. PE는 약 20~30%, 안쪽 층(75%)에 많고 곡률 형성·막 융합에 관여한다. 스핑고미엘린은 약 10~20%, 바깥쪽 층(85%)에 많아 콜레스테롤과 지질 뗏목을 이룬다. PS는 약 5~15%로 안쪽 층에만(100%) 격리된다."},{"id":20,"unit":"lipid","lv":2,"stem":"콜레스테롤에 대한 설명으로 옳지 않은 것은?","box":null,"choices":["6각 고리 3개와 5각 고리 1개로 된 스테로이드 핵에 –OH가 붙은 스테롤이다.","동물 세포막에 흔히 존재하며 막의 유동성을 조절한다.","스테로이드 호르몬, 비타민 D, 담즙산을 만드는 전구체이다.","글리세롤에 지방산 두 분자와 인산기가 결합한 양친매성 분자이다."],"ans":3,"exp":"콜레스테롤은 글리세롤이 없는 스테로이드 계열이다. 척추동물은 간에서 합성하며 음식물로도 얻는다. 글리세롤+지방산 2+인산기 구조는 인지질에 해당한다."},{"id":21,"unit":"lipid","lv":3,"stem":"동물 세포막에서 콜레스테롤이 온도 변화에 따른 막의 유동성 변화를 완충하는 방식으로 옳은 것은?","box":null,"choices":["고온에서는 인지질의 움직임을 더 활발하게 하고, 저온에서는 인지질 꼬리를 밀착시켜 막을 단단하게 한다.","고온에서는 인지질의 활발한 움직임으로 유동성이 지나치게 커지는 것을 억제하고, 저온에서는 인지질 지방산 꼬리 사이의 상호작용을 방해하여 막이 결정처럼 굳는 것을 막는다.","저온에서만 작용하여 인지질 꼬리를 밀착시키고 막을 단단하게 한다.","온도와 관계없이 막의 유동성을 항상 최대 수준으로 높인다."],"ans":1,"exp":"콜레스테롤은 ‘유동성 완충제(fluidity buffer)’로서 고온에서는 유동성 증가를 억제하고 저온에서는 막의 결정화를 방지하여 항상 일정한 수준의 유동성을 유지하게 한다."},{"id":22,"unit":"lipid","lv":2,"stem":"다음 중 지질에 해당하는 것만을 있는 대로 고른 것은?","box":["ㄱ. 콜레스테롤        ㄴ. 스핑고미엘린","ㄷ. 인슐린            ㄹ. 에스트로겐(성호르몬)"],"choices":["ㄱ, ㄴ","ㄱ, ㄴ, ㄹ","ㄴ, ㄷ, ㄹ","ㄱ, ㄴ, ㄷ, ㄹ"],"ans":1,"exp":"콜레스테롤(스테로이드), 스핑고미엘린(인지질), 에스트로겐(스테로이드계 호르몬)은 지질이다. 인슐린은 펩타이드계 호르몬(친수성, 세포막 수용체)이며 지질이 아니다. 스테로이드계 호르몬은 소수성이라 막을 통과해 세포질·핵 수용체에 결합한다."},{"id":23,"unit":"carb","lv":1,"stem":"생체의 주요 거대분자에 대한 설명으로 옳은 것은?","box":null,"choices":["탄수화물·단백질·핵산은 단위체가 이어진 중합체이지만, 지질은 단위체가 없어 중합체가 아니다.","단백질은 C, H, O로만 이루어져 있다.","핵산은 C, H, O, N으로만 이루어져 있고 인(P)은 포함하지 않는다.","탄수화물의 단위체는 뉴클레오타이드이다."],"ans":0,"exp":"탄수화물은 C·H·O(단위체: 단당류), 단백질은 C·H·O·N(아미노산), 핵산은 C·H·O·N·P(뉴클레오타이드)이다. 중합체의 합성은 탈수, 분해는 가수분해로 일어난다."},{"id":24,"unit":"carb","lv":1,"stem":"다음 결합 중 두 단위체 사이에서 물 분자가 빠져나가는 탈수(축합) 반응으로 형성되는 공유결합이 아닌 것은?","box":null,"choices":["펩타이드 결합","글리코시드 결합","에스터 결합(중성지방)","수소 결합"],"ans":3,"exp":"펩타이드 결합(아미노산), 글리코시드 결합(단당류), 에스터 결합(글리세롤–지방산)은 모두 탈수 축합으로 형성되는 공유결합이다. 수소 결합은 분자 사이 또는 분자 내의 약한 인력으로 공유결합이 아니다."},{"id":25,"unit":"carb","lv":1,"stem":"다음 중 케토스이면서 6탄당인 것은?","box":null,"choices":["갈락토오스","리보오스","과당","리불로오스"],"ans":2,"exp":"과당은 카보닐기가 골격 안쪽에 있는 케토스이자 6탄당이다. 갈락토오스는 알도스 6탄당, 리보오스는 알도스 5탄당, 리불로오스는 케토스 5탄당(광합성 중간산물)이다."},{"id":26,"unit":"carb","lv":2,"stem":"포도당의 고리화에 대한 설명으로 옳은 것은?","box":null,"choices":["수용액에서 포도당은 대부분 사슬형으로 존재하며 고리형은 0.1% 이하이다.","알도스인 포도당은 고리화할 때 헤미케탈을, 케토스인 과당은 헤미아세탈을 형성한다.","수용액에서는 사슬형과 고리형이 평형을 이루며 대부분 고리형으로 존재하고, 고리를 이룬 1번 탄소(헤미아세탈 탄소)는 회전이 자유롭지 않아 아노머가 생긴다.","고리화는 1번 탄소의 –OH가 6번 탄소를 공격하여 일어난다."],"ans":2,"exp":"1번 탄소(알데하이드기)를 5번 탄소에 붙은 –OH가 공격해 고리가 만들어진다. 알도스는 헤미아세탈, 케토스는 헤미케탈을 형성한다. 이 탄소가 고리 평면에서 회전할 수 없어 α·β 아노머가 생긴다."},{"id":27,"unit":"carb","lv":3,"stem":"두 분자의 관계가 옳게 짝지어진 것은?","box":null,"choices":["포도당과 갈락토오스 – 1번 탄소에서만 –OH 방향이 다른 아노머","D-포도당과 L-포도당 – 거울상 이성질체","α-포도당과 β-포도당 – 4번 탄소에서만 –OH 방향이 다른 에피머","포도당과 과당 – 4번 탄소에서만 차이가 나는 에피머"],"ans":1,"exp":"포도당과 갈락토오스는 4번 탄소에서만 다른 에피머, α·β-포도당은 1번 탄소(아노머 탄소)에서만 다른 아노머이다. 포도당(알도스)과 과당(케토스)은 카보닐기의 위치가 다른 이성질체이다."},{"id":28,"unit":"carb","lv":3,"stem":"아노머에 대한 <보기>의 설명 중 옳은 것만을 있는 대로 고른 것은?","box":["ㄱ. 아노머는 에피머의 특별한 종류이다.","ㄴ. 아노머 탄소는 고리형 당의 헤미아세탈(또는 헤미케탈) 탄소이다.","ㄷ. 고리 평면에서 CH2OH와 같은 쪽에 –OH가 있으면 β형이다.","ㄹ. 수용액에서 포도당은 α형이 β형보다 더 많은 비율로 평형을 이룬다."],"choices":["ㄱ, ㄴ","ㄱ, ㄴ, ㄷ","ㄴ, ㄷ, ㄹ","ㄱ, ㄴ, ㄷ, ㄹ"],"ans":1,"exp":"아노머는 에피머의 특별한 종류로 고리형 당의 1번(아노머) 탄소의 –OH 위치만 다르다. 기준이 되는 CH2OH와 같은 쪽에 –OH가 있으면 β, 반대쪽이면 α이다. 포도당은 수용액에서 α:β = 36:64로 β형이 더 많다(ㄹ 오답)."},{"id":29,"unit":"carb","lv":2,"stem":"환원당으로만 묶인 것은?","box":null,"choices":["포도당, 과당, 엿당(맥아당), 젖당","포도당, 설탕, 엿당","과당, 트레할로스, 젖당","갈락토오스, 녹말, 젖당"],"ans":0,"exp":"모든 단당류(과당 포함), 엿당, 젖당은 환원당이다. 설탕·트레할로스·모든 다당류는 비환원당이다."},{"id":30,"unit":"carb","lv":3,"stem":"이당류에 대한 설명으로 옳은 것은?","box":null,"choices":["젖당은 갈락토오스와 포도당이 α(1→4) 결합한 비환원당이다.","엿당은 포도당 두 분자가 α(1→1) 결합한 환원당이다.","설탕은 포도당과 과당이 α(1→2) 결합으로 연결된 비환원당이다.","트레할로스는 포도당 두 분자가 α(1→4) 결합한 환원당이다."],"ans":2,"exp":"엿당: 포도당+포도당 α(1→4) 환원당 / 젖당: 갈락토오스+포도당 β(1→4) 환원당 / 설탕: 포도당+과당 α(1→2) 비환원당 / 트레할로스: 포도당+포도당 α(1→1) 비환원당(곤충의 혈당)."},{"id":31,"unit":"carb","lv":3,"stem":"엿당은 환원당이지만 설탕과 트레할로스는 비환원당이다. 그 이유로 가장 적절한 것은?","box":null,"choices":["설탕과 트레할로스는 두 단당류의 아노머 탄소(환원 말단)끼리 결합에 사용되어, 고리가 열려 알데하이드기가 노출될 수 있는 자리가 남아 있지 않기 때문이다.","설탕과 트레할로스에는 알도스 단당류가 전혀 포함되어 있지 않기 때문이다.","엿당은 β 결합, 설탕과 트레할로스는 α 결합이라서 환원성이 없기 때문이다.","설탕과 트레할로스는 분자량이 커서 수용액에서 고리형과 사슬형의 평형이 일어나지 않기 때문이다."],"ans":0,"exp":"엿당은 한쪽 포도당의 아노머 탄소가 결합에 쓰이지 않고 남아 고리가 열려 알데하이드기가 노출될 수 있다(환원 말단). 설탕(Glc의 C1–Fru의 C2)과 트레할로스(Glc C1–Glc C1)는 양쪽 환원 말단이 모두 막혀 있다."},{"id":32,"unit":"carb","lv":3,"stem":"생물이 사용하는 당에 대한 설명으로 옳은 것은?","box":null,"choices":["곤충이 혈당으로 트레할로스를 쓰는 것은 효율의 문제일 뿐, 개방혈관계에서도 포도당을 혈당으로 쓸 수 있다.","식물은 체관으로 환원당인 포도당을 수송하여 마이야르 반응을 유도한다.","포유류는 폐쇄혈관계와 정밀한 호르몬 조절 시스템을 갖추고 있어 환원당인 포도당을 혈당으로 사용할 수 있다.","비환원당은 반응성이 높아 빠른 에너지 전환에 유리하고, 환원당은 안정적인 장거리 수송에 유리하다."],"ans":2,"exp":"곤충은 개방혈관계라 구획이 적어 환원당을 쓰면 무차별 반응하므로 비환원당(트레할로스)을 쓰는 것이 ‘가능성’의 문제이다. 식물은 체관으로 설탕(비환원당)을 수송한다. 환원당=빠른 에너지 전환, 비환원당=안정적 수송·저장이다."},{"id":33,"unit":"carb","lv":2,"stem":"다당류에 대한 설명으로 옳은 것은?","box":null,"choices":["글리코겐은 아밀로펙틴처럼 α(1→4) 사슬에 α(1→6) 가지를 가지지만 가지가 훨씬 많아, 효소가 작용할 비환원 말단이 많다.","셀룰로오스는 포도당이 α(1→4) 결합한 식물의 저장용 다당류이다.","키틴은 세균 세포벽의 주성분이며 β(1→4) 결합으로 이루어져 있다.","아밀로오스는 α(1→6) 결합에 의한 가지가 많은 식물의 저장용 다당류이다."],"ans":0,"exp":"저장용(α결합): 아밀로오스(가지 없음), 아밀로펙틴(α1→6 가지), 글리코겐(동물, 가지 더 많음). 구조용(β결합): 셀룰로오스(식물 세포벽), 키틴(균류 세포벽·절지동물 외골격), 펩티도글리칸(세균 세포벽)."},{"id":34,"unit":"carb","lv":2,"stem":"사람이 녹말은 소화하지만 셀룰로오스는 소화하지 못하는 이유로 가장 적절한 것은?","box":null,"choices":["셀룰로오스는 포도당이 아닌 다른 단당류로 이루어져 있기 때문이다.","녹말은 환원당이고 셀룰로오스는 비환원당이기 때문이다.","셀룰로오스는 글리코시드 결합 없이 사슬 사이의 수소결합만으로 연결되어 있기 때문이다.","두 다당류는 포도당 사이의 글리코시드 결합이 α와 β로 달라 입체 구조가 다르며, 사람의 소화 효소는 α 결합에 맞는 활성 부위만 가지고 있기 때문이다."],"ans":3,"exp":"입체 구조가 다르면 결합하는 효소가 다르다. 녹말(α)과 셀룰로오스(β)는 모두 포도당 중합체이며 둘 다 비환원당이고, 셀룰로오스도 β(1→4) 글리코시드 결합으로 연결된다(사슬 간 수소결합은 추가적 안정화)."},{"id":35,"unit":"dna","lv":1,"stem":"뉴클레오타이드에 대한 설명으로 옳은 것은?","box":null,"choices":["인산, 5탄당, 질소성 염기가 1:1:1로 결합한 물질이며, 음전하는 인산기에서 비롯된다.","5탄당에 질소성 염기만 결합한 물질이다.","인산은 5탄당의 3번 탄소에 결합한다.","인산기 때문에 뉴클레오타이드는 양전하를 띤다."],"ans":0,"exp":"5탄당+염기는 뉴클레오사이드이고, 여기에 5번 탄소(5′)의 수산기에 인산이 결합한 것이 뉴클레오타이드이다. 인산기가 뉴클레오타이드에 음전하를 부여한다."},{"id":36,"unit":"dna","lv":1,"stem":"고리가 한 개인 피리미딘 염기만을 모두 고른 것은?","box":null,"choices":["아데닌(A), 구아닌(G)","사이토신(C), 타이민(T), 유라실(U)","아데닌(A), 타이민(T), 유라실(U)","구아닌(G), 사이토신(C), 타이민(T)"],"ans":1,"exp":"피리미딘(고리 1개): C, T, U / 퓨린(고리 2개): A, G. 퓨린과 피리미딘이 1:1로 짝지어 이중나선의 폭이 일정하게 유지된다."},{"id":37,"unit":"dna","lv":2,"stem":"뉴클레오타이드의 기능으로 옳지 않은 것은?","box":null,"choices":["ATP처럼 화학 에너지의 단기성 운반체로 작용한다.","코엔자임 A(CoA)와 같은 조효소의 성분이 된다.","cAMP처럼 세포 내 신호전달 물질로 이용된다.","인지질처럼 이중층을 이루어 세포막의 기본 골격을 형성한다."],"ans":3,"exp":"뉴클레오타이드의 기능은 ① 에너지 운반(ATP, 인산무수결합의 가수분해로 자유에너지 방출) ② 조효소 형성(CoA) ③ 신호전달(cAMP)이다."},{"id":38,"unit":"dna","lv":2,"stem":"폴리뉴클레오타이드의 결합에 대한 설명으로 옳은 것은?","box":null,"choices":["당과 염기 사이의 결합은 산소를 통한 O-글리코시드 결합이다.","한 뉴클레오타이드의 5′-인산기와 다음 뉴클레오타이드 당의 3′-수산기가 인산디에스터 결합으로 연결되어 5′→3′ 방향성이 생긴다.","인산디에스터 결합은 두 가닥 사이의 상보적인 염기쌍을 연결하는 결합이다.","5′ 말단과 3′ 말단은 화학적으로 동일하여 사슬에 방향성이 없다."],"ans":1,"exp":"당-염기 사이는 질소를 통한 N-글리코시드 결합(탄수화물의 O-글리코시드와 구분)이다. 인산디에스터 결합은 사슬 내 당-인산 골격을 이루는 공유결합이고, 염기쌍은 수소결합이다."},{"id":39,"unit":"dna","lv":1,"stem":"DNA와 RNA의 비교로 옳은 것은?","box":null,"choices":["DNA는 염기로 유라실(U)을, RNA는 타이민(T)을 사용한다.","DNA는 단일가닥, RNA는 항상 이중나선 구조이다.","DNA의 당은 2번 탄소에 –H가 붙은 디옥시리보스이고, RNA의 당은 2번 탄소에 –OH가 붙은 리보스이다.","RNA는 유전정보의 장기 보존에, DNA는 정보의 일시적 전달에 주로 쓰인다."],"ans":2,"exp":"DNA: 디옥시리보스, A·G·C·T, 이중나선, 유전정보 장기 보존. RNA: 리보스, A·G·C·U, 주로 단일가닥(dsRNA도 존재), 정보의 일시 전달·단백질 합성 관여."},{"id":40,"unit":"dna","lv":2,"stem":"표준형(B형) DNA 이중나선이 염기쌍 200개로 이루어져 있다. 이 DNA가 나선을 이루는 회전 수와, 나선을 곧게 폈을 때의 길이로 옳은 것은? (한 회전에 염기쌍 10개, 한 회전의 길이 3.4 nm)","box":null,"choices":["20회전, 68 nm","20회전, 6.8 nm","10회전, 68 nm","20회전, 680 nm"],"ans":0,"exp":"200 ÷ 10 = 20회전, 20 × 3.4 nm = 68 nm이다(염기쌍 사이 0.34 nm × 200 = 68 nm)."},{"id":41,"unit":"dna","lv":2,"stem":"이중가닥 DNA의 한 가닥 염기서열이 5′-ATGCGCTAAC-3′일 때, 이 이중가닥 DNA의 두 가닥 사이에 형성된 수소결합은 모두 몇 개인가? (A–T 2개, G–C 3개)","box":null,"choices":["20개","23개","25개","30개"],"ans":2,"exp":"이 가닥에는 A 3개, T 2개, G 2개, C 3개가 있다. A–T 쌍 5개(10개)와 G–C 쌍 5개(15개)로 총 25개이다. G–C 쌍이 많을수록 녹는점이 높다."},{"id":42,"unit":"dna","lv":2,"stem":"길이가 같은 두 이중가닥 DNA (가)와 (나)의 G+C 함량은 각각 30%, 60%이다. 열을 가해 두 가닥을 분리하려 할 때의 설명으로 옳은 것은?","box":null,"choices":["(나)가 더 높은 온도에서 분리되며, G–C 쌍이 수소결합 3개로 A–T 쌍(2개)보다 강하게 결합하기 때문이다.","(가)가 더 높은 온도에서 분리되며, A–T 쌍이 G–C 쌍보다 수소결합이 더 많기 때문이다.","두 DNA는 염기쌍 수가 같으므로 분리되는 온도도 같다.","(나)가 더 낮은 온도에서 분리되며, G–C 쌍은 A–T 쌍보다 수소결합의 길이가 길기 때문이다."],"ans":0,"exp":"GC content가 높을수록 DNA 안정성이 커지고 녹는 점(Tm)이 높다. G–C는 수소결합 3개, A–T는 2개이다."},{"id":43,"unit":"dna","lv":3,"stem":"DNA의 큰홈(주홈)과 작은홈(부홈)에 대한 설명으로 옳은 것은?","box":null,"choices":["큰홈은 좁고 얕아 염기 배치를 구별하기 어렵다(정보량 낮음).","큰홈과 작은홈은 양쪽 가닥의 N-글리코시드 결합 각도가 좌우 대칭이어서 생긴다.","큰홈은 넓고 깊어 염기의 배치를 구별하기 쉬우므로(정보량 높음) 전사인자가 서열을 읽고 결합하며, TBP처럼 DNA를 구부리는 단백질은 주로 작은홈에 결합한다.","큰홈은 약 120°, 작은홈은 약 240°의 각도를 이룬다."],"ans":2,"exp":"양쪽 가닥의 당-인산 골격과 염기를 잇는 N-글리코시드 결합 각도가 비대칭이라 큰홈(약 240°, 넓고 깊음)과 작은홈(약 120°, 좁고 얕음)이 생긴다. 큰홈: 전사인자·유전자 조절 단백질, 작은홈: DNA를 구부리는 단백질(TBP)·약물."},{"id":44,"unit":"dna","lv":3,"stem":"DNA의 종류에 대한 설명으로 옳은 것은?","box":null,"choices":["A-DNA, B-DNA, Z-DNA는 모두 오른쪽으로 감기는 우선형이다.","Z-DNA는 좌선형이며, GC 서열이 반복되는 부위나 고염 환경, 전사로 인한 음성 초나선 스트레스가 생길 때 일시적으로 나타난다.","표준형인 A-DNA는 한 회전에 염기쌍이 10개이고 지름이 약 2.0 nm이다.","B-DNA는 건조하거나 탈수된 환경에서 주로 나타난다."],"ans":1,"exp":"B-DNA가 표준형(우선형, 회전당 10염기쌍, 3.4 nm, 지름 2.0 nm)이다. A-DNA는 탈수·건조 환경(우선형, RNA/DNA 하이브리드·dsRNA에 흔함), Z-DNA는 좌선형이다."},{"id":45,"unit":"dna","lv":3,"stem":"DNA의 사이토신이 자연적으로 탈아미노화되어 유라실(U)이 되었다. 이 손상이 복구되지 않은 채 DNA가 두 번 복제되면, 원래 C–G 쌍이었던 부위는 어떻게 되는가?","box":null,"choices":["모두 원래의 C–G 쌍으로 유지된다.","일부 딸 DNA에서 T–A 쌍으로 영구히 바뀐다(전이 돌연변이).","U–G 쌍이 그대로 유지된다.","A–C 쌍으로 바뀐다."],"ans":1,"exp":"복제기계는 U를 T처럼 취급하여 U 맞은편에 A를 넣고, 다음 복제 때 A의 짝으로 T가 들어가 C–G가 T–A로 바뀐다. 세포는 UNG가 U를 제거하고 C로 수리(염기절단복구, BER)하여 이를 막는다."},{"id":46,"unit":"dna","lv":2,"stem":"DNA가 RNA와 달리 유라실 대신 타이민(T)을 사용하는 이점으로 가장 적절한 것은?","box":null,"choices":["타이민이 유라실보다 짝과의 수소결합을 더 많이 형성하기 때문이다.","타이민은 퓨린 염기여서 아데닌과 1:1로 짝지을 수 있기 때문이다.","메틸기를 가진 타이민이 친수성이 커서 DNA가 핵 안에서 잘 녹기 때문이다.","사이토신의 탈아미노화로 생긴 유라실을 DNA에 있어서는 안 되는 비정상 염기로 즉시 인식하여, UNG가 제거하고 사이토신으로 복구할 수 있다."],"ans":3,"exp":"타이민은 유라실에 메틸기가 하나 붙은 것이다. DNA의 표준 염기를 T로 정해 두면 U는 항상 돌연변이(탈아미노화 불량품)로 즉각 색출된다."},{"id":47,"unit":"dna","lv":2,"stem":"토토머(tautomer)에 대한 설명으로 옳은 것은?","box":null,"choices":["케토기를 가진 G·T는 아미노형⇌이미노형으로 바뀔 수 있다.","토토머 전환은 분자식이 달라지는 산화·환원 반응이다.","토토머 전환이 일어나도 짝을 이루는 염기가 변하지 않으므로 복제 오류의 원인이 되지 않는다.","분자식은 같지만 수소 원자와 이중결합의 위치가 바뀌어 빠르게 전환되는 구조이성질체로, 아미노기를 가진 A·C는 아미노형⇌이미노형, 케토기를 가진 G·T는 케토형⇌에놀형으로 바뀔 수 있다."],"ans":3,"exp":"A, C는 아미노그룹(–NH₂), G, T는 케토그룹(C=O)을 갖는다. 토토머 전환으로 수소결합 위치가 바뀌면 A–C, G–T 같은 잘못된 염기쌍이 형성될 수 있다."},{"id":48,"unit":"dna","lv":2,"stem":"세 종류 RNA의 특징으로 옳은 것은?","box":null,"choices":["mRNA는 세포 내 RNA 중 가장 많은 비율(80% 이상)을 차지한다.","rRNA는 아미노산을 리보솜으로 운반한다.","tRNA는 클로버잎 모양의 입체 구조를 가지며 mRNA보다 수명이 길어 재사용될 수 있다.","mRNA는 리보솜과 결합하여 장기간 안정하게 유지된다."],"ans":2,"exp":"mRNA: 단일가닥 선형, 약 1~5%(가장 적음), 분~시간 단위로 분해. tRNA: 클로버잎, 약 10~15%, 재사용 가능, 아미노산 운반. rRNA: 리보솜(단백질 조립 공장)의 구성 성분, 80% 이상, 매우 안정."},{"id":49,"unit":"dna","lv":2,"stem":"RNA를 기능에 따라 분류할 때 ‘유전자 조절’ 그룹과 ‘구조 및 가공’ 그룹이 옳게 짝지어진 것은?","box":null,"choices":["유전자 조절: snRNA, snoRNA, lncRNA\n구조 및 가공: miRNA, siRNA, piRNA","유전자 조절: miRNA, snRNA, piRNA\n구조 및 가공: siRNA, snoRNA, lncRNA","유전자 조절: miRNA, siRNA, piRNA\n구조 및 가공: snRNA, snoRNA, lncRNA","유전자 조절: miRNA, siRNA, lncRNA\n구조 및 가공: snRNA, snoRNA, piRNA"],"ans":2,"exp":"유전자 조절: miRNA(특정 유전자 억제), siRNA(외부 바이러스 차단), piRNA(유전체 보호). 구조 및 가공: snRNA(mRNA 스플라이싱), snoRNA(rRNA 가공), lncRNA(X 염색체 비활성화 조절 등)."},{"id":50,"unit":"chrom","lv":1,"stem":"유전자와 유전체에 대한 설명으로 옳은 것은?","box":null,"choices":["유전자는 세포가 가진 전체 DNA의 총합이며, 유전의 기본 단위는 유전체이다.","효모 같은 단세포 진핵생물의 유전체는 사람보다 산재성 DNA가 훨씬 많아 유전자 밀도가 낮다.","산재성 DNA(junk DNA)는 기능이 전혀 없는 쓰레기 서열임이 밝혀졌다.","유전체는 한 생물체의 모든 염색체가 가진 전체 유전정보이며, 사람 같은 다세포 진핵생물의 유전체에는 단백질을 암호화하지 않지만 정상적인 유전자 발현에 필요한 산재성 DNA가 많다."],"ans":3,"exp":"유전자는 유전정보를 담은 DNA의 특정 구간(유전의 기본 단위)이다. 효모는 유전자가 조밀하고, 사람 등은 유전자 사이에 산재성 DNA가 있다. 산재성 DNA는 각 기능이 다 밝혀지지는 않았으나 정상적인 유전자 발현에 필요한 서열이다."},{"id":51,"unit":"chrom","lv":1,"stem":"염색체 구성에 관한 용어의 설명으로 옳은 것은?","box":null,"choices":["염색질(chromatin)은 세포분열 시 극단적으로 응축되어 막대 모양이 된 구조물이다.","염색체(chromosome)는 뉴클레오솜들이 핵 안에서 느슨하게 풀어져 있는 상태이다.","좌위(locus)는 염색체 상에서 특정 유전자가 차지하고 있는 자리이다.","뉴클레오솜은 히스톤 4량체(H2A, H2B, H3, H4 각 1개)를 DNA가 감싼 구조이다."],"ans":2,"exp":"염색질=뉴클레오솜들이 풀어져 있는 상태, 염색체=분열 시 극단적으로 응축된 구조물이다. 뉴클레오솜=DNA+히스톤 8량체(4종×2)이다."},{"id":52,"unit":"chrom","lv":2,"stem":"뉴클레오솜 코어 입자에 대한 설명으로 옳지 않은 것은?","box":null,"choices":["히스톤 8량체와 이를 감싸는 DNA로 이루어진다.","히스톤 8량체는 H2A, H2B, H3, H4 네 종류의 히스톤이 각각 2개씩 모인 것이다.","인접한 뉴클레오솜은 연결자 DNA(linker DNA)로 이어진다.","링커 히스톤 H1은 히스톤 8량체 내부에 포함되어 DNA를 감는다."],"ans":3,"exp":"H1은 코어 입자가 아니라 뉴클레오솜 사이의 연결자 DNA에 결합하는 링커 히스톤이다."},{"id":53,"unit":"chrom","lv":2,"stem":"염색질에 뉴클레아제를 짧은 시간 처리하였을 때의 결과를 해석한 것으로 옳은 것은?","box":null,"choices":["뉴클레오솜 사이 연결자 DNA의 인산디에스터 결합이 끊어져 뉴클레오솜 코어 입자가 분리된다.","히스톤 단백질의 펩타이드 결합이 끊어져 히스톤 8량체가 해체된다.","코어 입자를 감고 있는 DNA까지 완전히 가수분해되어 DNA는 남지 않는다.","DNA 두 가닥 사이의 수소결합이 끊어져 염기쌍이 풀린다."],"ans":0,"exp":"뉴클레아제는 핵산의 인산디에스터 결합을 끊는 효소이다. 짧게 처리하면 노출된 연결자 DNA만 잘려 히스톤이 감싼 코어 입자가 분리된다. 이 코어 입자에서 DNA와 히스톤 8량체를 다시 분리해 성분을 규명했다."},{"id":54,"unit":"chrom","lv":2,"stem":"히스톤에 대한 설명으로 옳은 것은?","box":null,"choices":["글루탐산과 아스파르트산 같은 음전하 아미노산이 많아 DNA의 염기와 직접 수소결합한다.","히스톤 꼬리는 뉴클레오솜 안쪽에 감추어져 있어 화학적 수식이 일어나지 않는다.","히스톤은 종에 따라 서열이 크게 달라 진화적으로 보존되어 있지 않다.","라이신과 아르기닌 같은 양전하 아미노산이 많아 음전하를 띤 DNA의 당–인산 골격과 정전기적 상호작용으로 단단히 결합하며, N-말단 꼬리는 가변적 공유결합 수식을 통해 염색질 구조를 조절한다."],"ans":3,"exp":"히스톤 꼬리는 DNA 밖으로 노출된 비정형의 긴 N-말단 아미노산 꼬리로, 아세틸기·인산기·메틸기의 첨가/제거로 염색질 구조를 조절한다. 히스톤은 진화적으로 매우 잘 보존되어 있다."},{"id":55,"unit":"chrom","lv":2,"stem":"히스톤 H1과 뉴클레오솜 형성의 이점에 대한 설명으로 옳은 것은?","box":null,"choices":["H1은 뉴클레오솜 코어 안에서 DNA를 감는 히스톤 8량체의 구성 요소이다.","H1은 연결자 DNA에 결합하여 뉴클레오솜들을 서로 끌어당겨 염색질을 더 고차 구조로 압축하며, 뉴클레오솜 덕분에 약 2 m의 DNA가 수 μm의 핵 안에 들어갈 수 있다.","뉴클레오솜 형성은 물리적 압축에는 도움이 되지만 유전자 발현 조절과는 무관하다.","사람 세포의 DNA를 펼치면 약 2 μm이므로 핵 안에 쉽게 들어간다."],"ans":1,"exp":"뉴클레오솜의 이점: ① 물리적 압축(세포분열 시 염색체 복제·분리도 쉬워짐) ② 히스톤 꼬리의 화학적 수식으로 DNA를 감추거나(유전자 OFF) 느슨하게 벌려(유전자 ON) 발현을 조절하는 후성유전학적 스위치."},{"id":56,"unit":"chrom","lv":2,"stem":"진정염색질과 이질염색질에 대한 설명으로 옳지 않은 것은?","box":null,"choices":["진정염색질은 간기에 느슨하게 풀려 있어 유전자 발현 관련 단백질이 접근하기 쉽다.","이질염색질은 간기에도 고도로 응축되어 있어 일반적으로 유전자 발현이 억제된다.","진정염색질은 빽빽하게 압축되어 있어 염색약에 진하게 물든다.","이질염색질은 주로 핵막 근처에 분포하며 염색약에 진하게 물든다."],"ans":2,"exp":"진정염색질(euchromatin)은 느슨하고 염색약에 연하게 물들며 전사가 활발하다(스위치 ON). 이질염색질(heterochromatin)은 응축되어 진하게 물들며 전사가 억제된다(스위치 OFF)."},{"id":57,"unit":"chrom","lv":3,"stem":"어떤 세포에 히스톤 탈아세틸화효소(HDAC)의 활성을 억제하는 약물을 처리했다. 이때 일반적으로 예상되는 결과로 옳은 것은?","box":null,"choices":["히스톤 꼬리의 양전하가 복구되어 뉴클레오솜이 응축되고 유전자 발현이 억제된다.","DNA의 사이토신에 메틸기가 추가로 붙어 CpG 섬이 응축된다.","아세틸기가 제거되어 진정염색질이 이질염색질로 바뀐다.","히스톤 꼬리 라이신의 아세틸기가 유지되어 양전하가 중화된 상태가 지속되므로 히스톤과 DNA 사이의 인력이 약해지고, 염색질이 느슨해져 전사가 늘어난다."],"ans":3,"exp":"HDAC는 아세틸기를 제거(탈아세틸화)해 양전하를 복구시키고 뉴클레오솜을 응축시킨다. HDAC를 억제하면 아세틸화 상태가 유지되어 진정염색질화·발현 증가가 일어난다."},{"id":58,"unit":"chrom","lv":3,"stem":"히스톤 라이신 곁사슬이 아세틸화되면 양전하가 사라지는 까닭에 대한 설명으로 옳은 것은?","box":null,"choices":["아세틸화된 라이신(N-아세틸라이신)은 아마이드 결합을 이루어 질소의 비공유 전자쌍이 산소 쪽으로 끌려가는 공명 구조가 되므로, 질소가 H⁺와 결합해 암모늄 이온(–NH₃⁺)이 되지 못하고 중성 상태가 된다.","아세틸기 자체가 강한 음전하를 띠고 있어 라이신의 양전하를 상쇄한다.","아세틸기가 붙으면서 라이신의 아미노기가 더 많은 H⁺를 끌어당겨 –NH₃⁺의 양전하가 더 커진다.","아세틸화로 라이신이 산성 아미노산으로 바뀌어 곁사슬이 H⁺를 내놓는다."],"ans":0,"exp":"라이신의 아미노기는 비공유 전자쌍으로 H⁺를 끌어 –NH₃⁺(강한 양전하)가 된다. 아세틸화되면 아마이드 공명으로 이 능력을 잃어 양전하가 중화되고, DNA와의 상호작용이 약해져 진정염색질화된다. 아세틸기 자체가 음전하를 띠는 것은 아니다."},{"id":59,"unit":"chrom","lv":3,"stem":"DNA 메틸화에 대한 설명으로 옳은 것은?","box":null,"choices":["프로모터의 CpG 섬이 메틸화되면 뉴클레오솜이 풀려 유전자 발현이 켜진다.","DNMT가 CpG 부위 사이토신의 5번 탄소에 메틸기를 공유결합시키며, 이는 MBD 단백질을 통해 HDAC 등을 불러 모아 뉴클레오솜을 응축시키므로 유전자 발현이 억제된다.","메틸기는 친수성이어서 DNA와 히스톤 사이의 인력을 직접 약화시킨다.","DNA 메틸화는 쉽게 제거되므로 히스톤 탈아세틸화보다 단기적이고 역동적이다."],"ans":1,"exp":"메틸기(소수성)가 5번 탄소에 단단히 공유결합하므로 DNA 메틸화는 매우 안정적·장기적이며 탈메틸화는 어렵다(TET 산화 → BER 수선 필요). CpG 섬은 평소 비메틸화(발현 ON), 메틸화되면 발현 OFF이다."},{"id":60,"unit":"chrom","lv":3,"stem":"DNA 메틸화와 히스톤 탈아세틸화를 비교한 설명으로 옳은 것은?","box":null,"choices":["DNA 메틸화는 DNMT가 DNA의 CpG 사이토신에, 히스톤 탈아세틸화는 HDAC가 히스톤의 라이신 꼬리에 작용하며, 두 기작은 서로를 불러들여 함께 뉴클레오솜을 응축시킨다.","두 기작 모두 히스톤 꼬리의 라이신에 작용하며 관여하는 효소만 다르다.","두 기작은 서로 독립적으로만 일어나며 한쪽이 다른 쪽을 유도하는 일은 없다.","DNA 메틸화는 유전자 발현을 켜고, 히스톤 탈아세틸화는 유전자 발현을 끈다."],"ans":0,"exp":"DNA 메틸화가 히스톤 탈아세틸화를 부르기도 하고, 히스톤 탈아세틸화가 DNA 메틸화를 부르기도 한다. 둘 다 이질염색질화(응축) → 침묵(스위치 OFF)에 기여한다."},{"id":61,"unit":"chrom","lv":2,"stem":"성염색체 수 차이에 따른 유전자 양 불균형을 보정하는 방식이 옳게 짝지어진 것은?","box":null,"choices":["초파리 – XY 수컷이 X 염색체의 전사량을 두 배로 늘려(과다 전사) 암컷과 균형을 맞춘다.","사람 – 암컷이 두 X 염색체의 발현량을 각각 절반으로 낮추어(과소 전사) 수컷과 균형을 맞춘다.","예쁜꼬마선충 – XO 수컷이 X 염색체의 전사량을 두 배로 늘려 XX 개체와 균형을 맞춘다.","쥐 – 수컷의 X 염색체 하나를 영구 불활성화하여 바소체를 만든다."],"ans":0,"exp":"사람·쥐: 암컷의 X 염색체 하나를 영구 불활성화(전사 침묵, 바소체). 초파리: 수컷 X 전사 2배(과다 전사). 예쁜꼬마선충: XX 개체가 X 발현량을 절반으로(과소 전사)."},{"id":62,"unit":"chrom","lv":3,"stem":"포유류 암컷의 X 염색체 불활성화에 대한 설명으로 옳은 것은?","box":null,"choices":["모든 세포에서 항상 아버지에게서 받은 X 염색체만 불활성화된다.","세포분열이 일어날 때마다 어느 X를 불활성화할지 다시 무작위로 정해진다.","바소체는 활성화된 X 염색체가 핵 중앙에 모인 구조이다.","배 발생 초기 체세포에서 어느 X 염색체를 불활성화할지 무작위적·독립적으로 정해지고, 일단 불활성화되면 그 세포의 모든 자손 세포에 유지되며 불활성화된 X는 바소체로 응축된다."],"ans":3,"exp":"라이온 효과: 불활성화는 배 발생 초기 어느 시점에 무작위적·독립적으로 일어나며 이후 자손 세포에 유전된다. 바소체는 불활성화된 X가 조밀하게 응축된 것으로 핵막 안쪽을 따라 분포한다."},{"id":63,"unit":"chrom","lv":3,"stem":"Xist와 X 염색체 불활성화에 대한 설명으로 옳은 것은?","box":null,"choices":["Xist RNA는 mRNA처럼 핵 밖으로 나가 번역되어 X 염색체 불활성화 단백질을 만든다.","불활성화될 X 염색체의 Xic에서 발현된 Xist lncRNA는 핵 밖으로 나가지 않고 자신이 만들어진 X 염색체를 덮어 가리며, DNMT를 끌어들여 DNA 메틸화를 유도한다.","Xist는 활성 X 염색체에서 발현되어 그 염색체를 감싸 보호한다.","난자가 될 세포에서는 Xist가 더 강하게 발현되어 바소체가 한층 더 응축된다."],"ans":1,"exp":"Xist는 단백질을 만들지 않는 긴 비암호화 RNA(lncRNA)로, 자기가 만들어진 X 염색체 DNA에 붙어 그 자리에서 작용한다. 난소에서 난자가 될 세포는 감수분열 제1전기 직전 Xist 발현이 차단되어 바소체가 풀리고 두 X가 모두 활성화된다."},{"id":64,"unit":"aa","lv":1,"stem":"다음 중 거울상 이성질체(L형·D형)가 존재하지 않는 아미노산은?","box":null,"choices":["알라닌","글리신","세린","발린"],"ans":1,"exp":"글리신은 곁사슬이 수소 원자(H)라서 α탄소에 같은 원자단이 두 개 붙어 비대칭(카이랄) 탄소가 아니다. 자연계 단백질의 아미노산은 L형, 당은 D형이다."},{"id":65,"unit":"aa","lv":2,"stem":"어떤 아미노산의 등전점(pI)이 6.0이다. 이 아미노산을 pH 2.0의 용액에 녹여 전기장을 걸었을 때의 설명으로 옳은 것은?","box":null,"choices":["순전하가 음(−)이 되어 양극(+) 쪽으로 이동한다.","순전하가 0이 되어 어느 극으로도 이동하지 않는다.","순전하가 양(+)이 되어 음극(−) 쪽으로 이동한다.","카복실기는 –COO⁻, 아미노기는 –NH₂ 상태가 되어 순전하가 −1이다."],"ans":2,"exp":"pH < pI(산성)이면 H⁺가 풍부해 아미노산이 H⁺를 받아 양전하가 되고 음극으로 간다. pH > pI이면 H⁺를 내놓아 음전하가 되고 양극으로 간다. pH = pI이면 순전하 0으로 이동하지 않는다."},{"id":66,"unit":"aa","lv":3,"stem":"염기성 아미노산 X의 세 해리기의 pKa가 각각 2.2(α-카복실기), 9.0(α-아미노기), 10.5(곁사슬)이다. 이 아미노산의 등전점(pI)에 가장 가까운 값은?","box":null,"choices":["5.6","6.1","9.75","10.5"],"ans":2,"exp":"염기성 아미노산의 pI는 가장 높은 두 pKa의 평균이다. (9.0 + 10.5) ÷ 2 = 9.75."},{"id":67,"unit":"aa","lv":3,"stem":"산성 아미노산 Y의 pKa가 α-카복실기 2.0, 곁사슬 카복실기 4.0, α-아미노기 9.8이다. 이 아미노산의 pI는?","box":null,"choices":["3.0","5.9","6.9","9.8"],"ans":0,"exp":"산성 아미노산의 pI는 가장 낮은 두 pKa의 평균이다. (2.0 + 4.0) ÷ 2 = 3.0."},{"id":68,"unit":"aa","lv":3,"stem":"pH 2에서 12까지 기울기를 가진 겔의 산성 쪽 끝에 (+)극, 염기성 쪽 끝에 (−)극을 연결하고 등전점 전기영동을 하였다. pI가 각각 2.8, 6.0, 9.7인 아스파르트산, 글리신, 라이신에 대한 설명으로 옳은 것은?","box":null,"choices":["세 아미노산 모두 pH 6.0 지점에 모여 정지한다.","라이신은 (+)극 쪽에, 아스파르트산은 (−)극 쪽에 정지한다.","세 아미노산은 순전하가 0이 된 뒤에도 각각 전극 쪽으로 계속 이동한다.","각 아미노산은 자신의 pI와 같은 pH 지점에서 순전하가 0이 되어 정지하므로, (+)극 쪽부터 아스파르트산, 글리신, 라이신 순으로 위치한다."],"ans":3,"exp":"산성 쪽에서는 아미노산이 양전하로 (−)극 방향(염기성 쪽)으로, 염기성 쪽에서는 음전하로 (+)극 방향으로 이동하다가 자기 pI와 pH가 같아지면 순전하 0이 되어 그 자리에서 멈춘다(focusing)."},{"id":69,"unit":"aa","lv":1,"stem":"곁사슬의 성질과 아미노산의 짝이 옳지 않은 것은?","box":null,"choices":["글루탐산 – 극성 산성(음전하)","아르기닌 – 극성 염기성(양전하)","세린 – 극성 중성(히드록시기)","발린 – 극성 산성(카복실기)"],"ans":3,"exp":"발린은 분지형 곁사슬을 가진 비극성 지방족 아미노산(BCAA: 발린·류신·이소류신)이다. 산성: Asp·Glu, 염기성: Lys·Arg·His, 극성 중성: Ser·Thr·Cys·Asn·Gln 등."},{"id":70,"unit":"aa","lv":2,"stem":"아미노산 곁사슬의 작용기에 대한 설명으로 옳은 것은?","box":null,"choices":["세린, 트레오닌, 메티오닌은 모두 히드록시기를 가져 인산기와 결합할 수 있다.","메티오닌은 설피드릴기를 가지고 있어 이황화 결합을 형성한다.","시스테인의 설피드릴기(–SH) 두 개가 산화되어 이황화 결합(–S–S–)을 이루며, 이는 단백질 입체 구조를 안정화하는 공유결합이다.","아스파라긴과 글루타민은 곁사슬에 카복실기가 있어 산성 아미노산이다."],"ans":2,"exp":"히드록시기를 가진 것은 세린·트레오닌·타이로신이다. 메티오닌과 시스테인은 황을 함유하지만 이황화 결합은 설피드릴기(–SH)를 가진 시스테인만 형성하고, 메티오닌은 메틸기를 다른 분자에 전달하는 역할을 한다. Asn·Gln은 아미노기(아마이드)를 가진 극성 중성이다."},{"id":71,"unit":"aa","lv":3,"stem":"히스티딘에 대한 설명으로 옳은 것은?","box":null,"choices":["곁사슬의 pKa가 약 6.0으로 7보다 낮아 생체 pH(약 7.4)에서 양성자를 얻기도 잃기도 하므로, 효소 활성 부위에서 양성자를 주고받는 산-염기 촉매(양성자 셔틀)로 자주 쓰인다.","곁사슬에 카복실기를 가져 산성 아미노산으로 분류된다.","곁사슬의 pKa가 라이신·아르기닌(10 이상)보다 높아 H⁺를 가장 강하게 붙잡는다.","이미다졸 고리는 방향족이 아니어서 공명 구조를 이루지 않는다."],"ans":0,"exp":"히스티딘은 염기성 아미노산이지만 이미다졸 고리의 공명 안정화로 전하가 고루 분산되어 쉽게 양성자를 내놓는다(pKa(R) ≈ 6.0, pI ≈ 7.59). 이 성질 덕분에 촉매 삼조에서 염기·산으로 모두 작용한다."},{"id":72,"unit":"aa","lv":2,"stem":"아미노산의 특성에 대한 설명으로 옳은 것은?","box":null,"choices":["프롤린은 곁사슬이 아미노기에 연결된 피롤리딘 고리를 이루므로 폴리펩타이드 골격의 회전이 자유롭다.","발린·류신·이소류신은 분지형 극성 아미노산으로 단백질 표면에 주로 위치한다.","글리신은 곁사슬이 수소 원자 하나뿐이라 부피가 가장 작고, 폴리펩타이드가 날카롭게 꺾이는 β턴 부위에 많이 존재한다.","메티오닌은 설피드릴기를 가져 이황화 결합을 형성한다."],"ans":2,"exp":"프롤린은 고리 때문에 골격 회전이 제한된다. BCAA(발린·류신·이소류신)는 비극성이라 소수성 상호작용으로 단백질 내부에 위치하는 경향이 있다."},{"id":73,"unit":"aa","lv":2,"stem":"단백질 용액의 농도를 280 nm 자외선 흡광도로 추정할 수 있는 이유로 가장 적절한 것은?","box":null,"choices":["펩타이드 결합의 산소 원자가 280 nm 빛을 방출하기 때문이다.","트립토판·타이로신 같은 방향족 아미노산의 고리(공명 구조)가 280 nm 자외선을 강하게 흡수하기 때문이다.","이황화 결합을 이룬 시스테인만이 280 nm에서 빛을 흡수하기 때문이다.","라이신·아르기닌의 양전하가 280 nm 자외선을 흡수하기 때문이다."],"ans":1,"exp":"벤젠 고리를 가진 방향족 아미노산은 공명 구조 덕분에 자외선을 흡수하며, 특히 트립토판과 타이로신이 280 nm에서 강한 흡광성을 보인다."},{"id":74,"unit":"aa","lv":2,"stem":"아미노산 8개가 직선형으로 연결된 펩타이드가 만들어질 때 생성되는 물 분자 수와 펩타이드 결합 수는?","box":null,"choices":["물 8개, 결합 8개","물 7개, 결합 7개","물 7개, 결합 8개","물 8개, 결합 7개"],"ans":1,"exp":"n개의 아미노산이 직선으로 연결되면 펩타이드 결합 n−1개가 만들어지고, 결합마다 탈수 축합으로 물 1분자가 나온다. 8−1 = 7."},{"id":75,"unit":"aa","lv":2,"stem":"낫 모양 적혈구 빈혈증은 헤모글로빈 β 사슬의 글루탐산이 발린으로 바뀌어 나타난다. 이에 대한 설명으로 옳은 것은?","box":null,"choices":["아미노산 서열은 정상이며 3차 구조 형성 과정의 오류가 원인이다.","염기성 아미노산이 산성 아미노산으로 바뀌어 등전점이 높아진 예이다.","DNA 염기가 하나 바뀌어도 아미노산은 바뀌지 않는 중립적 돌연변이의 예이다.","음전하를 띤 극성 곁사슬이 비극성 곁사슬로 바뀌는 1차 구조의 단 하나의 변화만으로도 단백질의 성질과 기능이 크게 달라질 수 있음을 보여 준다."],"ans":3,"exp":"글루탐산(산성, 음전하)이 발린(비극성)으로 바뀐 1차 구조 변화의 사례이다. 이 돌연변이 대립유전자는 말라리아 지역에서 이형접합자에게 저항성을 주어 생존에 유리했다(돌연변이의 양면성)."},{"id":76,"unit":"aa","lv":3,"stem":"한 회전당 약 3.6개의 아미노산을 포함하는 α-나선이 아미노산 72개로 이루어져 있다면, 이 α-나선은 약 몇 회전을 하는가?","box":null,"choices":["18회전","20회전","24회전","72회전"],"ans":1,"exp":"α-나선은 n번째 아미노산의 C=O와 n+4번째 아미노산의 N–H가 수소결합하며 한 회전에 약 3.6개가 들어간다. 72 ÷ 3.6 = 20회전."},{"id":77,"unit":"aa","lv":2,"stem":"단백질 2차 구조에 대한 설명으로 옳은 것은?","box":null,"choices":["α-나선은 n번째 아미노산 주사슬의 C=O와 n+4번째 아미노산 주사슬의 N–H 사이의 수소결합으로 안정화되며, 곁사슬은 이 수소결합에 관여하지 않는다.","2차 구조는 곁사슬(R기) 사이의 이온결합과 이황화 결합으로 안정화된다.","β-병풍은 폴리펩타이드 사슬이 평행하게만 배열되며 역평행 배열은 나타나지 않는다.","α-나선과 β-병풍은 특정 곁사슬을 가진 아미노산 서열에서만 만들어진다."],"ans":0,"exp":"2차 구조는 주사슬(Cα–CO–NH–Cα)의 CO와 NH 사이 수소결합으로 형성되므로 곁사슬이 관여하지 않아 다양한 서열에서 나타난다. β-병풍은 N-말단 방향에 따라 평행/역평행이 모두 있다."},{"id":78,"unit":"aa","lv":3,"stem":"세포막을 관통하는 α-나선 부분에서 나선 바깥쪽으로 뻗어 나온 곁사슬의 성질과 그 까닭이 옳게 짝지어진 것은?","box":null,"choices":["극성 – 지질 이중층 바깥의 물 분자와 접하기 때문이다.","산성(음전하) – 인지질 머리의 양전하와 이온결합하기 위해서이다.","비극성(소수성) – 지질 이중층 안쪽의 소수성 지방산 꼬리와 접하기 때문이다.","염기성(양전하) – 나선 내부에 물이 지나가는 통로를 만들기 위해서이다."],"ans":2,"exp":"막관통 α-나선은 친수성인 폴리펩타이드 골격이 수소결합으로 나선 내부를 이루고, 바깥으로 뻗은 비극성 곁사슬이 막의 소수성 지질 환경과 접해 골격을 보호한다."},{"id":79,"unit":"aa","lv":2,"stem":"단백질의 3차 구조에 대한 설명으로 옳은 것은?","box":null,"choices":["곁사슬 사이의 소수성 상호작용, 반데르발스 힘, 이온결합·수소결합 같은 약한 비공유 결합과 이황화 결합(공유결합)으로 안정화되며, 소수성 아미노산은 주로 분자 내부에 위치한다.","곁사슬 사이의 상호작용은 모두 공유결합이라서 온도·pH의 영향을 받지 않는다.","친수성 아미노산은 주로 단백질 내부에 모여 소수성 핵을 이룬다.","3차 구조에서는 아미노산의 종류가 중요하지 않고 주사슬의 수소결합만이 구조를 결정한다."],"ans":0,"exp":"3차 구조부터 곁사슬 사이의 상호작용이 본격적으로 작용하므로 아미노산 종류가 중요하다. 이황화 결합만 공유결합이고 나머지는 약한 비공유 결합이지만 많이 모이면 강해진다. 산성·염기성 등 친수성 아미노산은 표면, 소수성 아미노산(Val·Leu 등)은 내부에 위치하는 경향이 있다."},{"id":80,"unit":"aa","lv":2,"stem":"단백질의 4차 구조에 대한 설명으로 옳은 것은?","box":null,"choices":["3차 구조를 가진 폴리펩타이드(소단위체)가 여러 개 모여 기능을 하는 구조이며, 헤모글로빈(α 2개·β 2개의 4량체)이 그 예이다.","모든 단백질이 4차 구조를 가진다.","하나의 폴리펩타이드 사슬이 접혀 이루는 3차원적 형태를 말한다.","콜라겐은 소단위체 없이 하나의 폴리펩타이드 나선으로만 이루어진다."],"ans":0,"exp":"4차 구조는 일부 단백질에만 해당한다. 소단위체 수에 따라 2량체·3량체·4량체로 부르며, 콜라겐은 3개의 폴리펩타이드 나선이 꼬인 삼중나선(3량체)이다."},{"id":81,"unit":"aa","lv":3,"stem":"단백질의 접힘과 변성에 대한 설명으로 옳은 것은?","box":null,"choices":["단백질의 접힘은 자유에너지가 증가하는 과정이라서 샤페론의 ATP 없이는 일어날 수 없다.","고온이나 요소 처리로 변성되면 펩타이드 결합이 끊어져 항상 복원이 불가능하다.","변성된 단백질은 입체 구조만 바뀌고 기능은 그대로 유지된다.","폴리펩타이드는 자유에너지가 최소인 입체 구조로 접히며, 접힘은 열을 방출하고 주변의 무질서도를 증가시키므로 자발적으로 일어난다. 요소로 변성된 단백질도 요소를 제거하면 다시 접힐(탈변성) 수 있다."],"ans":3,"exp":"변성은 3차원 구조를 유지하던 약한 비공유 결합이 풀려 구조와 기능을 잃는 것이다(펩타이드 결합은 유지). 변성 요인을 제거하면 복원될 수 있으나, 강한 가열은 비가역적일 수 있다. 접힘은 ΔG<0의 자발적 반응이다."},{"id":82,"unit":"aa","lv":3,"stem":"분자 샤페론에 대한 설명으로 옳은 것은?","box":null,"choices":["샤페로닌(예: GroEL/GroES)은 여러 소단위체로 이루어진 속이 빈 바구니 모양으로, ATP를 이용해 그 안에 가둔 폴리펩타이드가 올바르게 접히도록 독립된 공간을 제공한다.","샤페론(예: Hsp70, Hsp90)은 다수의 단량체로 된 바구니 구조이며 고온에서 발현이 감소한다.","분자 샤페론은 ATP를 사용하지 않고 폴리펩타이드 사슬의 접힘 방향만 정해 준다.","샤페로닌은 변성되어 응집된 단백질을 아미노산으로 분해하여 세포 밖으로 내보낸다."],"ans":0,"exp":"분자 샤페론은 ATP를 사용해 폴리펩타이드가 에너지적으로 가장 유리한 방식으로 접히도록 돕는다. 샤페론은 단량체이며 열충격단백질(Hsp)로 고온에서 유도되고, 샤페로닌은 많은 단량체로 이루어진 바구니형이다."},{"id":83,"unit":"aa","lv":3,"stem":"단백질의 접힘 이상과 분해에 대한 설명으로 옳은 것은?","box":null,"choices":["잘못 접힌 단백질이 아밀로이드 구조를 만들면 알츠하이머병 같은 퇴행성 신경질환을 일으키고, 프리온은 정상 단백질을 비정상 구조로 바꾸며 전파되어 광우병 같은 감염성 신경퇴행성 질환을 일으킨다.","유비퀴틴이 결합한 단백질은 리소좀의 약 40종 가수분해효소에 의해 중성 pH에서 분해된다.","유비퀴틴–프로테아좀계에 의한 단백질 분해는 ATP 없이 일어난다.","프리온은 정상 단백질과 결합해 비정상 접힘을 유발하지만 세포 수준에서는 전파되지 않는다."],"ans":0,"exp":"재생 불가능한 단백질에는 유비퀴틴이 결합(폴리유비퀴틴화)되어 ATP 의존적으로 26S 프로테아좀에서 분해된다. 리소좀은 내부 pH 4.5~5.0을 유지하며 약 40종의 가수분해효소를 가진다. 프리온은 세포 수준에서 빠르게 전파된다."},{"id":84,"unit":"enz","lv":1,"stem":"효소에 대한 설명으로 옳은 것은?","box":null,"choices":["반응물과 생성물의 자유에너지 차이를 줄여 흡열 반응을 발열 반응으로 바꾼다.","반응의 평형을 생성물 쪽으로 이동시켜 최종 생성물의 양을 늘린다.","반응의 활성화 에너지를 낮추어 반응 속도를 높이지만, 반응물과 생성물의 자유에너지(ΔG)와 반응의 평형점은 바꾸지 못한다.","활성화 에너지를 낮추는 동시에 반응의 ΔG를 더 큰 음수로 만든다."],"ans":2,"exp":"효소는 생체 촉매로 활성화 에너지(Ea)를 낮출 뿐, 반응물·생성물 고유의 ΔG는 그대로이다. 최종 평형 비율은 반응물과 생성물의 ΔG에 의해서만 결정된다."},{"id":85,"unit":"enz","lv":2,"stem":"효소의 특징에 대한 설명으로 옳은 것은?","box":null,"choices":["효소는 반응이 진행되는 중에도 구조가 전혀 변하지 않는다.","효소는 반응에 소모되므로 반응 후 새로 합성되어야 한다.","최적 온도와 pH를 벗어나면 주로 효소의 아미노산 서열(1차 구조)이 바뀌어 활성이 떨어진다.","효소는 반응 전후에 질량이나 구조에 영구적인 변화가 없어 재사용되지만, 반응이 진행되는 중에는 기질과 결합하며 구조가 변한다."],"ans":3,"exp":"‘반응 과정에서’ 변하지 않는다고 하면 틀리고 ‘반응 전후’로 표현해야 한다. 최적 온도·pH가 있는 이유는 입체 구조를 유지하는 약한 비공유 결합이 온도와 pH의 영향을 받기 때문이다."},{"id":86,"unit":"enz","lv":2,"stem":"효소의 활성 부위에 대한 설명으로 옳은 것은?","box":null,"choices":["효소 분자 전체가 활성 부위이므로 어느 부위에서든 기질과 결합할 수 있다.","효소의 아미노산 중 일부로 이루어지며, 1차 구조에서는 멀리 떨어져 있던 아미노산들이 3차 구조로 접히면서 한곳에 모여 기질과 결합하는 포켓을 이룬다.","활성 부위를 이루는 아미노산은 1차 구조상 반드시 서로 인접해 있어야 한다.","활성 부위 이외의 아미노산은 기능과 무관하므로 바뀌어도 활성에 영향이 없다."],"ans":1,"exp":"활성 부위 이외의 나머지 부분은 활성 부위의 형태를 결정하는 틀을 제공하므로, 내부 아미노산의 작은 변화도 입체 구조를 바꾸어 기능을 잃게 할 수 있다."},{"id":87,"unit":"enz","lv":2,"stem":"효소–기질 복합체 형성 모델에 대한 설명으로 옳은 것은?","box":null,"choices":["유도적합 모델에서는 기질이 접근하면 효소의 활성 부위가 기질에 맞게 변형되어 최적의 결합을 이루며, 이는 전이 상태 안정화와 활성화 에너지 감소를 설명한다.","자물쇠와 열쇠 모델은 효소의 활성 부위가 유연하게 변한다고 본다.","유도적합 모델에서 활성 부위는 기질과 만나기 전부터 완전히 고정된 구조이다.","자물쇠와 열쇠 모델은 결합 각도를 비틀거나 전이 상태를 안정화하는 역동적 메커니즘을 잘 설명한다."],"ans":0,"exp":"자물쇠와 열쇠(lock and key)는 견고하고 고정된(rigid) 활성 부위를 가정해 효소의 역동적 메커니즘을 설명하지 못하는 한계가 있다. 현대에는 유연한(flexible) 활성 부위를 가정하는 유도적합(induced fit)을 사용한다(장갑과 손의 비유)."},{"id":88,"unit":"enz","lv":3,"stem":"효소가 활성화 에너지를 낮추는 기작을 <보기>와 같이 설명하였다. 각 설명에 해당하는 기작이 옳게 짝지어진 것은?","box":["(가) 두 기질을 활성 부위에서 최적의 위치와 각도로 고정해 유효 충돌을 정밀하게 만든다.","(나) 활성 부위 잔기가 반응 중 생기는 불안정한 전하를 전기적으로 감싸 안정화한다.","(다) 기질이 결합할 때 결합 각도가 비틀려 화학 결합이 쉽게 깨지는 상태가 된다.","(라) 활성 부위 곁사슬과 기질 사이에 일시적 공유결합이 생겼다가 곁사슬이 원상태로 복원된다."],"choices":["(가) 전기화학적 – (나) 구조적 정렬 – (다) 공유촉매 – (라) 역학적","(가) 구조적 정렬 – (나) 역학적 – (다) 전기화학적 – (라) 공유촉매","(가) 역학적 – (나) 구조적 정렬 – (다) 공유촉매 – (라) 전기화학적","(가) 구조적 정렬 – (나) 전기화학적 – (다) 역학적 – (라) 공유촉매"],"ans":3,"exp":"(가) 위치·각도 최적화 = 구조적 정렬(유효 충돌 정밀화), (나) 전이 상태·중간체의 전하 안정화 = 전기화학적, (다) 결합 각도 비틀기 = 역학적, (라) 곁사슬–기질 일시적 공유결합 = 공유촉매작용. 곁사슬은 반응 후 원상태로 복원되어 효소는 재사용된다."},{"id":89,"unit":"enz","lv":2,"stem":"산-염기 촉매작용에 대한 설명으로 옳은 것은?","box":null,"choices":["일반 염기 촉매는 활성 부위 아미노산이 기질(또는 친핵체)로부터 H⁺를 빼앗아 반응성을 높이고, 일반 산 촉매는 기질에 H⁺를 제공해 전하를 안정화하고 이탈기가 쉽게 떨어지게 한다.","일반 산 촉매는 기질로부터 H⁺를 빼앗고, 일반 염기 촉매는 기질에 H⁺를 제공한다.","산-염기 촉매에서는 활성 부위 아미노산이 기질과 일시적 공유결합을 형성한다.","양성자는 활성 부위 아미노산이 아니라 물 분자(H₃O⁺, OH⁻)가 직접 주고받는다."],"ans":0,"exp":"산-염기 촉매는 기질과 공유결합하지 않고 오직 양성자를 주고받아 반응 속도를 높인다. 이때 산(공여자)/염기(수용자) 역할은 물이 아닌 활성 부위의 아미노산 잔기가 수행한다."},{"id":90,"unit":"enz","lv":1,"stem":"다음 중 친핵체(nucleophile)로 작용하기 어려운 것은?","box":null,"choices":["수산화 이온(OH⁻)","암모니아(NH₃)","물(H₂O)","양성자(H⁺)"],"ans":3,"exp":"친핵체는 전자가 풍부해 전자쌍을 제공하는 물질(루이스 염기)로 OH⁻, Cl⁻, H₂O, NH₃ 등이 있다. H⁺, CH₃⁺, BF₃ 등은 전자쌍을 받아들이는 친전자체(루이스 산)이다."},{"id":91,"unit":"enz","lv":3,"stem":"친핵성 촉매와 산-염기의 협동 메커니즘에서 일어나는 단계를 순서대로 옳게 나열한 것은?","box":["(가) 친핵체가 기질을 공격하여 일시적인 공유결합 중간체를 형성한다.","(나) 일반 산이 양성자를 공여하여 이탈기를 방출하고 생성물이 완성된다.","(다) 일반 염기가 친핵체로부터 양성자를 빼앗아 친핵체를 활성화한다."],"choices":["(가) → (다) → (나)","(다) → (나) → (가)","(다) → (가) → (나)","(나) → (가) → (다)"],"ans":2,"exp":"① 일반 염기 촉매가 친핵체(–OH, –SH)의 H⁺를 빼앗아 강한 친핵체로 활성화 → ② 친핵체가 기질을 공격해 일시적 공유결합 중간체 형성 → ③ 일반 산 촉매가 H⁺를 공여해 이탈기를 방출하고 생성물을 완성, 효소가 재생된다."},{"id":92,"unit":"enz","lv":3,"stem":"아세틸콜린에스터라아제(AChE)의 촉매 삼조에 대한 설명으로 옳은 것은?","box":null,"choices":["His447이 친핵체이고 Ser203이 양성자를 주고받는 셔틀 역할을 한다.","Glu334가 기질을 직접 공격하여 공유결합 중간체를 형성한다.","Ser203은 기질을 직접 공격하는 친핵체이고, His447은 전반부에는 Ser의 –OH에서 H⁺를 빼앗는 염기로, 후반부에는 이탈기에 H⁺를 주는 산으로 작용하며, Glu334는 His의 뒤에서 음전하로 His를 돕는다.","세 잔기는 활성 부위에서 서로 멀리 떨어져 각각 독립적으로 반응한다."],"ans":2,"exp":"촉매 삼조 = 친핵체(Ser) – 염기(His, 양성자 셔틀) – 산(Glu, 구조적·정전기적 지지). Glu가 His의 전하를 증폭·밀어 주어 His가 Ser의 H⁺를 훨씬 더 강하게 빼앗도록 돕는다. 세 잔기는 한 포켓에 모여 협동한다."},{"id":93,"unit":"enz","lv":2,"stem":"촉매 삼조를 이루는 아미노산(친핵체 – 염기 – 산)이 옳게 짝지어진 것은?","box":null,"choices":["시스테인 프로테아제 – Ser – His – Asp","아세틸콜린에스터라아제 – Cys – His – Glu","세린 프로테아제 – His – Ser – Asp","세린 프로테아제(예: 키모트립신) – Ser – His – Asp"],"ans":3,"exp":"세린 프로테아제: Ser-His-Asp / 시스테인 프로테아제: Cys-His-Asn/Asp / 아세틸콜린에스터라아제: Ser-His-Glu. 친핵체는 –OH·–SH를 가진 아미노산(Ser, Cys)이다."},{"id":94,"unit":"enz","lv":2,"stem":"효소 반응의 초기 반응속도에 대한 설명으로 옳은 것은?","box":null,"choices":["기질 농도가 높아지면 초기 반응속도는 한계 없이 계속 비례하여 증가한다.","효소 농도가 일정할 때 기질 농도가 충분히 높아 모든 효소의 활성 부위가 사용되는 포화 상태가 되면, 기질 농도를 더 높여도 초기 반응속도는 더 이상 증가하지 않는다.","기질 농도가 같을 때 효소 농도를 2배로 높여도 초기 반응속도는 변하지 않는다.","포화 상태에서 반응속도가 일정해지는 것은 효소가 변성되기 때문이다."],"ans":1,"exp":"[S]↑ → ES 복합체가 늘어 속도가 증가하다가 포화 시 Vmax에 도달한다. [E]↑ → 같은 [S]에서 초기 속도가 비례하여 증가한다(Vmax = kcat·[E]total)."},{"id":95,"unit":"enz","lv":3,"stem":"어떤 효소 반응의 Vmax가 120 μM/s, Km이 2 mM이다. 기질 농도 [S]가 6 mM일 때 초기 반응속도 V₀는? (미하엘리스–멘텐 식 사용)","box":null,"choices":["60 μM/s","80 μM/s","90 μM/s","105 μM/s"],"ans":2,"exp":"V₀ = Vmax[S] / (Km + [S]) = 120 × 6 / (2 + 6) = 90 μM/s. ([S] = Km이면 V₀ = Vmax/2.)"},{"id":96,"unit":"enz","lv":3,"stem":"같은 반응을 촉매하는 효소 A와 B의 Vmax는 같고, Km은 A가 0.1 mM, B가 5 mM이다. 이에 대한 설명으로 옳은 것은?","box":null,"choices":["B가 A보다 기질 친화도가 높다.","A가 B보다 기질 친화도가 높으며, 더 낮은 기질 농도에서 Vmax의 절반에 도달한다.","Km은 효소가 낼 수 있는 최대 반응속도를 뜻하므로 B의 최대 속도가 더 크다.","두 효소는 Vmax가 같으므로 모든 기질 농도에서 반응속도가 같다."],"ans":1,"exp":"Km은 Vmax의 ½에 도달하는 데 필요한 기질 농도로, 기질 친화도와 반비례한다(Km↓ = 친화도↑). 낮은 [S]에서는 Km이 작은 A가 더 빠르다."},{"id":97,"unit":"enz","lv":3,"stem":"효소 농도 [E]total이 2 μM일 때 Vmax가 1,000 μM/s로 측정되었다. 이 효소의 전환수(kcat)는?","box":null,"choices":["250 s⁻¹","500 s⁻¹","2,000 s⁻¹","2 × 10⁶ s⁻¹"],"ans":1,"exp":"kcat = Vmax / [E]total = 1,000 μM/s ÷ 2 μM = 500 s⁻¹, 즉 효소 1분자가 포화 상태에서 1초에 기질 500개를 생성물로 전환한다. 특이성 상수 kcat/Km은 kcat에 기질 친화도(Km)까지 반영한 효소의 촉매 효율 지표이다."},{"id":98,"unit":"enz","lv":3,"stem":"표는 야생형(WT)과 두 돌연변이 효소의 동역학 값이다. 이에 대한 해석으로 옳은 것은?","box":["효소      kcat (s⁻¹)    Km (μM)","WT         8.0          500","변이 A     7.5          500","변이 B     8.0        1,000"],"choices":["변이 A는 kcat이 감소했으므로 Km과 관계없이 기질 친화도가 WT보다 높아졌다.","변이 B의 kcat/Km은 WT와 같으므로 촉매 효율에 변화가 없다.","변이 B는 Km이 WT의 2배로 커져 기질 친화도가 낮아졌고, kcat/Km도 WT의 절반으로 감소해 촉매 효율이 떨어졌다.","세 효소 중 kcat/Km이 가장 낮은 것은 변이 A이다."],"ans":2,"exp":"kcat/Km은 WT 8.0/500 = 0.016, 변이 A 7.5/500 = 0.015, 변이 B 8.0/1000 = 0.008(단위 μM⁻¹s⁻¹)이다. 변이 A는 WT와 거의 차이가 없고 변이 B만 효율이 절반으로 떨어졌다."},{"id":99,"unit":"enz","lv":3,"stem":"라인위버–버크 그래프(x축 1/[S], y축 1/V₀)에서 x절편이 −0.5 mM⁻¹, y절편이 0.02 s/μM로 얻어졌다. 이 효소의 Km과 Vmax는?","box":null,"choices":["Km = 0.5 mM, Vmax = 0.02 μM/s","Km = 2 mM, Vmax = 0.02 μM/s","Km = 0.5 mM, Vmax = 50 μM/s","Km = 2 mM, Vmax = 50 μM/s"],"ans":3,"exp":"x절편 = −1/Km → Km = 2 mM, y절편 = 1/Vmax → Vmax = 1 ÷ 0.02 = 50 μM/s. 기울기는 Km/Vmax이다."},{"id":100,"unit":"enz","lv":3,"stem":"저해제 X를 처리했더니 Vmax는 변하지 않고 Km만 증가했으며, 기질 농도를 크게 높이자 저해가 극복되었다. 이 저해제에 대한 설명으로 옳은 것은?","box":null,"choices":["비경쟁적 저해제로, 활성 부위가 아닌 다른 부위에 결합해 효소의 모양을 바꾼다.","경쟁적 저해제로, 라인위버–버크 그래프에서 저해제가 없을 때와 x절편이 같은 직선을 나타낸다.","비경쟁적 저해제로, 기질 농도를 높이면 Vmax가 다시 원래 값으로 회복된다.","경쟁적 저해제로, 기질과 유사하여 활성 부위를 두고 기질과 경쟁하며, 라인위버–버크 그래프에서 저해제가 없을 때와 y절편이 같은 직선을 나타낸다."],"ans":3,"exp":"경쟁적 저해: Vmax 유지, Km 증가, [S]↑로 극복(예: 에틸렌글라이콜 중독 치료에 에탄올 투여, 카페인의 아데노신 차단). 비경쟁적 저해: 활성 부위 외 부위에 결합해 Vmax 감소, Km 유지(예: 헥소카이네이스에 대한 G6P, 디기탈리스의 Na⁺-K⁺ 펌프 저해)."}];
+const UNITS = [["cell","1차시 · 세포·현미경·모델생물"],["lipid","2차시 · 지질"],["carb","2차시 · 탄수화물"],["dna","3차시 · DNA"],["chrom","3차시 · 염색체"],["aa","4차시 · 아미노산·단백질 구조"],["enz","4차시 · 효소"]];
+const MARK = ["①","②","③","④"];
+const LVNAME = {1:"기본", 2:"응용", 3:"심화"};
+const LS_KEY = "cb-midterm-quiz-v1";
+const uname = Object.fromEntries(UNITS.map(u => [u[0], u[1]]));
+
+let S = { mode:"practice", answers:{}, graded:false, filter:"all", onlyWrong:false, order:null };
+
+function load(){
+  try{
+    const raw = localStorage.getItem(LS_KEY);
+    if(!raw) return;
+    const o = JSON.parse(raw);
+    if(o && typeof o === "object"){
+      S.mode = o.mode === "exam" ? "exam" : "practice";
+      S.answers = (o.answers && typeof o.answers === "object") ? o.answers : {};
+      S.graded = !!o.graded;
+      S.order = Array.isArray(o.order) ? o.order : null;
+    }
+  }catch(e){}
+}
+function save(){
+  try{ localStorage.setItem(LS_KEY, JSON.stringify({mode:S.mode, answers:S.answers, graded:S.graded, order:S.order})); }catch(e){}
+}
+
+const byId = Object.fromEntries(Q.map(q => [q.id, q]));
+const el = id => document.getElementById(id);
+
+function revealed(q){
+  if(S.mode === "practice") return S.answers[q.id] !== undefined;
+  return S.graded;
+}
+function isCorrect(q){ return S.answers[q.id] === q.ans; }
+
+function orderedList(){
+  let ids = Q.map(q => q.id);
+  if(S.order && S.order.length === ids.length && S.order.every(i => byId[i])) ids = S.order;
+  return ids.map(i => byId[i]);
+}
+
+function visible(){
+  return orderedList().filter(q => {
+    if(S.filter !== "all" && q.unit !== S.filter) return false;
+    if(S.onlyWrong && !(revealed(q) && S.answers[q.id] !== undefined && !isCorrect(q))) return false;
+    return true;
+  });
+}
+
+function renderChips(){
+  const box = el("chips");
+  box.textContent = "";
+  const mk = (key, label, count, color) => {
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "chip";
+    b.setAttribute("aria-pressed", String(S.filter === key));
+    if(color){ const i = document.createElement("i"); i.style.setProperty("--c", color); b.appendChild(i); }
+    b.appendChild(document.createTextNode(label + " "));
+    const s = document.createElement("small"); s.textContent = count; b.appendChild(s);
+    b.addEventListener("click", () => { S.filter = key; render(); });
+    box.appendChild(b);
+  };
+  mk("all", "전체", Q.length);
+  UNITS.forEach(u => mk(u[0], u[1], Q.filter(q => q.unit === u[0]).length, `var(--u-${u[0]})`));
+
+  const lab = document.createElement("label");
+  lab.className = "toggle"; lab.id = "wrongToggle";
+  const cb = document.createElement("input"); cb.type = "checkbox"; cb.checked = S.onlyWrong;
+  cb.addEventListener("change", () => { S.onlyWrong = cb.checked; renderList(); });
+  lab.appendChild(cb); lab.appendChild(document.createTextNode("오답만 보기"));
+  const any = Q.some(q => revealed(q) && S.answers[q.id] !== undefined && !isCorrect(q));
+  lab.hidden = !any;
+  box.appendChild(lab);
+}
+
+function card(q){
+  const rev = revealed(q);
+  const picked = S.answers[q.id];
+  const art = document.createElement("article");
+  art.className = "q" + (rev && picked !== undefined ? (isCorrect(q) ? " is-ok" : " is-bad") : "");
+  art.id = "q" + q.id;
+
+  const head = document.createElement("div"); head.className = "q-head";
+  const num = document.createElement("span"); num.className = "num"; num.textContent = "Q" + q.id;
+  const tag = document.createElement("span"); tag.className = "tag"; tag.style.setProperty("--c", `var(--u-${q.unit})`); tag.textContent = uname[q.unit];
+  const lv = document.createElement("span"); lv.className = "lv";
+  lv.appendChild(document.createTextNode(LVNAME[q.lv] + " "));
+  const dots = document.createElement("i"); dots.textContent = "●".repeat(q.lv) + "○".repeat(3 - q.lv); lv.appendChild(dots);
+  head.append(num, tag, lv);
+  art.appendChild(head);
+
+  const stem = document.createElement("p"); stem.className = "stem"; stem.textContent = q.stem; art.appendChild(stem);
+
+  if(q.box && q.box.length){
+    const b = document.createElement("div"); b.className = "box";
+    const cap = document.createElement("span"); cap.className = "cap"; cap.textContent = "보기";
+    b.appendChild(cap); b.appendChild(document.createTextNode(q.box.join("\n")));
+    art.appendChild(b);
+  }
+
+  const fs = document.createElement("fieldset"); fs.className = "opts";
+  fs.style.margin = "0"; fs.style.minWidth = "0";
+  const lg = document.createElement("legend"); lg.style.cssText = "position:absolute;left:-9999px"; lg.textContent = "Q" + q.id + " 보기";
+  fs.appendChild(lg);
+  q.choices.forEach((c, i) => {
+    const lab = document.createElement("label"); lab.className = "opt";
+    const inp = document.createElement("input"); inp.type = "radio"; inp.name = "q" + q.id; inp.value = String(i);
+    inp.checked = picked === i;
+    const locked = S.mode === "practice" ? picked !== undefined : S.graded;
+    inp.disabled = locked;
+    if(locked) lab.classList.add("locked");
+    if(rev){
+      if(i === q.ans) lab.classList.add("correct");
+      else if(picked === i) lab.classList.add("wrong");
+    }else if(picked === i){
+      lab.classList.add("picked");
+    }
+    const mk = document.createElement("span"); mk.className = "mark"; mk.textContent = MARK[i];
+    const tx = document.createElement("span"); tx.className = "txt"; tx.textContent = c;
+    lab.append(inp, mk, tx);
+    inp.addEventListener("change", () => choose(q.id, i));
+    fs.appendChild(lab);
+  });
+  art.appendChild(fs);
+
+  if(rev){
+    const ex = document.createElement("div"); ex.className = "exp";
+    const v = document.createElement("div");
+    if(picked === undefined){ v.className = "verdict bad"; v.textContent = "미응답 · 정답 " + MARK[q.ans]; }
+    else if(isCorrect(q)){ v.className = "verdict ok"; v.textContent = "정답 " + MARK[q.ans]; }
+    else { v.className = "verdict bad"; v.textContent = "오답 · 정답은 " + MARK[q.ans]; }
+    const p = document.createElement("p"); p.textContent = q.exp;
+    ex.append(v, p);
+    if(S.mode === "practice"){
+      const r = document.createElement("button"); r.type = "button"; r.className = "btn retry"; r.textContent = "이 문제 다시 풀기";
+      r.addEventListener("click", () => { delete S.answers[q.id]; save(); render(); const t = el("q" + q.id); if(t) t.scrollIntoView({block:"center"}); });
+      ex.appendChild(r);
+    }
+    art.appendChild(ex);
+  }
+  return art;
+}
+
+function renderList(){
+  const list = el("list");
+  list.textContent = "";
+  const vs = visible();
+  if(!vs.length){
+    const d = document.createElement("div"); d.className = "empty"; d.textContent = "표시할 문제가 없어요."; list.appendChild(d);
+  }else{
+    vs.forEach(q => list.appendChild(card(q)));
+  }
+  const any = Q.some(q => revealed(q) && S.answers[q.id] !== undefined && !isCorrect(q));
+  const t = el("wrongToggle"); if(t) t.hidden = !any;
+}
+
+function counts(){
+  const done = Q.filter(q => S.answers[q.id] !== undefined).length;
+  const shown = Q.filter(q => revealed(q));
+  const correct = shown.filter(q => isCorrect(q)).length;
+  return {done, correct, shownCount: shown.length};
+}
+
+function renderStat(){
+  const c = counts();
+  el("sTotal").textContent = Q.length;
+  el("sDone").textContent = c.done;
+  el("sCorrect").textContent = S.mode === "exam" && !S.graded ? "–" : c.correct;
+  el("sMode").textContent = S.mode === "exam" && !S.graded ? " · 채점 전" : "";
+  el("meter").style.width = (c.done / Q.length * 100) + "%";
+  el("mPractice").setAttribute("aria-pressed", String(S.mode === "practice"));
+  el("mExam").setAttribute("aria-pressed", String(S.mode === "exam"));
+  el("bGrade").hidden = !(S.mode === "exam" && !S.graded);
+}
+
+function renderResult(){
+  const box = el("rBody");
+  box.textContent = "";
+  const c = counts();
+  if(c.shownCount === 0){
+    const p = document.createElement("p"); p.style.color = "var(--muted)"; p.style.margin = "0";
+    p.textContent = S.mode === "exam" ? "모두 푼 뒤 ‘채점하기’를 누르면 결과가 여기에 표시돼요." : "문제를 풀면 단원별 정답률이 여기에 쌓여요.";
+    box.appendChild(p); return;
+  }
+  const sc = document.createElement("div"); sc.className = "score";
+  sc.textContent = c.correct + " ";
+  const sm = document.createElement("small");
+  sm.textContent = "/ " + c.shownCount + " 문항 정답 (" + Math.round(c.correct / c.shownCount * 100) + "%)";
+  sc.appendChild(sm); box.appendChild(sc);
+
+  const bars = document.createElement("div"); bars.className = "ubars";
+  UNITS.forEach(u => {
+    const qs = Q.filter(q => q.unit === u[0] && revealed(q));
+    if(!qs.length) return;
+    const ok = qs.filter(q => isCorrect(q)).length;
+    const row = document.createElement("div"); row.className = "ubar"; row.style.setProperty("--c", `var(--u-${u[0]})`);
+    const n = document.createElement("span"); n.textContent = u[1];
+    const tr = document.createElement("span"); tr.className = "track";
+    const fi = document.createElement("i"); fi.style.width = (ok / qs.length * 100) + "%"; tr.appendChild(fi);
+    const r = document.createElement("span"); r.textContent = ok + "/" + qs.length;
+    row.append(n, tr, r); bars.appendChild(row);
+  });
+  box.appendChild(bars);
+
+  const wr = orderedList().filter(q => revealed(q) && !(S.answers[q.id] !== undefined && isCorrect(q)));
+  if(wr.length){
+    const w = document.createElement("div"); w.className = "wrongs";
+    w.appendChild(document.createTextNode("복습할 문제: "));
+    wr.sort((a, b) => a.id - b.id).forEach(q => {
+      const a = document.createElement("a"); a.href = "#q" + q.id; a.textContent = "Q" + q.id;
+      a.addEventListener("click", ev => {
+        if(S.filter !== "all" || S.onlyWrong){ S.filter = "all"; S.onlyWrong = false; render(); }
+        const t = el("q" + q.id); if(t){ ev.preventDefault(); t.scrollIntoView({block:"center"}); }
+      });
+      w.appendChild(a);
+    });
+    box.appendChild(w);
+  }
+}
+
+function render(){ renderStat(); renderChips(); renderList(); renderResult(); }
+
+function choose(id, i){
+  const q = byId[id];
+  if(S.mode === "practice"){
+    if(S.answers[id] !== undefined) return;
+    S.answers[id] = i; save();
+    const old = el("q" + id);
+    const fresh = card(q);
+    if(old) old.replaceWith(fresh);
+    renderStat(); renderResult();
+    const t = el("wrongToggle"); if(t) t.hidden = !Q.some(x => revealed(x) && S.answers[x.id] !== undefined && !isCorrect(x));
+  }else{
+    if(S.graded) return;
+    S.answers[id] = i; save();
+    const old = el("q" + id); if(old) old.replaceWith(card(q));
+    renderStat();
+  }
+}
+
+function setMode(m){
+  if(S.mode === m) return;
+  const has = Object.keys(S.answers).length > 0;
+  if(has && !confirm("풀이 방식을 바꾸면 지금까지의 답안이 초기화돼요. 계속할까요?")) return;
+  S.mode = m; S.answers = {}; S.graded = false; S.onlyWrong = false; save(); render();
+  window.scrollTo({top:0});
+}
+
+function grade(){
+  const left = Q.filter(q => S.answers[q.id] === undefined).length;
+  if(left && !confirm(left + "문항이 비어 있어요. 그래도 채점할까요?")) return;
+  S.graded = true; save(); render();
+  el("result").scrollIntoView({block:"start"});
+}
+
+function reset(){
+  if(Object.keys(S.answers).length && !confirm("모든 답안을 지우고 처음부터 시작할까요?")) return;
+  S.answers = {}; S.graded = false; S.onlyWrong = false; S.filter = "all"; save(); render();
+  window.scrollTo({top:0});
+}
+
+function shuffle(){
+  if(S.order){ S.order = null; el("bShuffle").textContent = "순서 섞기"; }
+  else{
+    const ids = Q.map(q => q.id);
+    for(let i = ids.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [ids[i], ids[j]] = [ids[j], ids[i]]; }
+    S.order = ids; el("bShuffle").textContent = "번호순으로";
+  }
+  save(); renderList();
+}
+
+function buildKey(){
+  const g = el("keygrid"); g.textContent = "";
+  Q.forEach(q => {
+    const d = document.createElement("div");
+    d.appendChild(document.createTextNode("Q" + q.id));
+    const b = document.createElement("b"); b.textContent = MARK[q.ans]; d.appendChild(b);
+    g.appendChild(d);
+  });
+  const pk = el("printKey");
+  const h = document.createElement("h2"); h.textContent = "정답 및 해설";
+  pk.appendChild(h);
+  Q.forEach(q => {
+    const p = document.createElement("p");
+    const s = document.createElement("b"); s.textContent = "Q" + q.id + " " + MARK[q.ans] + "  ";
+    p.append(s, document.createTextNode(q.exp));
+    pk.appendChild(p);
+  });
+}
+
+el("mPractice").addEventListener("click", () => setMode("practice"));
+el("mExam").addEventListener("click", () => setMode("exam"));
+el("bGrade").addEventListener("click", grade);
+el("bReset").addEventListener("click", reset);
+el("bShuffle").addEventListener("click", shuffle);
+el("bPrint").addEventListener("click", () => window.print());
+el("bKey").addEventListener("click", () => el("veil").classList.add("on"));
+el("kClose").addEventListener("click", () => el("veil").classList.remove("on"));
+el("veil").addEventListener("click", e => { if(e.target === el("veil")) el("veil").classList.remove("on"); });
+document.addEventListener("keydown", e => { if(e.key === "Escape") el("veil").classList.remove("on"); });
+
+load();
+if(S.order) el("bShuffle").textContent = "번호순으로";
+buildKey();
+render();
+</script>
+</body>
+</html>
